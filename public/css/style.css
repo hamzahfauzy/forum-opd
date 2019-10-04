@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+html, body {
+	font-family: 'Lato', sans-serif;
+	width: 100%;
+	height: 100%;
+}
+
+.loading-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    position: fixed;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.loader{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('http://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 50% 50% no-repeat rgb(249,249,249);
+
+}
+
+.bg {
+	background: url('../assets/asahan.jpg');
+	width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 1;
+}
+
+.bg::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    /*background: -webkit-linear-gradient(bottom, #005bea, #00c6fb);
+    background: -o-linear-gradient(bottom, #005bea, #00c6fb);
+    background: -moz-linear-gradient(bottom, #005bea, #00c6fb);
+    background: linear-gradient(bottom, #005bea, #00c6fb);*/
+    opacity: 0.3;
+}
+
+.bg h2,h3,h4:not(.modal-title) {
+	color: #FFF;
+}
+
+.logo {
+	width: 100%;
+	text-align: center;
+}
+
+.me-btn {
+	border:2px solid #FFF;
+	color:#FFF;
+	border-radius: 0px;
+	background:none;
+}
+
+.me-btn:hover {
+	color: #2ecc71;
+	border:2px solid #2ecc71;
+}
+
+span.footer {
+	color:#FFF;
+}
+
+.container.z-container {
+    max-width: 500px;
+}
+
+input.form-control.z-input {
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #FFF;
+    font-size: 20px;
+    border:0px;
+    color:#000;
+}
+.z-btn {
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+    border:0px;
+}
+.z-form label.light {
+    color: #FFF;
+}
+.z-red {
+    color: red;
+}
+
+.profile-picture {
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.z-mobile {
+    display: none;
+}
+
+.z-desktop {
+    display: block;
+}
+
+.username-label {
+    text-transform: capitalize;
+}
+
+.no-border-radius {
+    border-radius: 0px !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .z-mobile {
+        display: block;
+    }
+
+    .z-mobile .me-btn {
+        margin-bottom: 5px;
+    }
+
+    .z-desktop {
+        display: none;
+    }
+}
