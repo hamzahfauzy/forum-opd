@@ -218,6 +218,12 @@
 				    <!-- Modal body -->
 				    <div class="modal-body">
 				    	<div style="max-height:450px;overflow: auto;">
+				    		<div class="alert alert-success" role="alert" v-if="usulanSuccessStatus">
+								Usulan Berhasil Di Hapus
+							</div>
+							<div class="alert alert-danger" role="alert" v-if="usulanFailStatus">
+								Usulan Gagal Di Hapus
+							</div>
 					    	<table class="table table-bordered">
 					    		<tr v-for="data in dataUsulans">
 					    			<td>
@@ -230,9 +236,12 @@
 					    				<br>
 					    				<b>{{data.refSubUnit.Nm_Sub_Unit}}</b>
 					    				<br>
-					    				<button class="btn btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
-					    				<button class="btn btn-primary" v-if="acara.status == 1"><i class="fa fa-pencil"></i> Edit</button>
-					    				<button class="btn btn-danger" v-if="acara.status == 1"><i class="fa fa-trash"></i> Hapus</button>
+					    				<center>
+						    				<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
+						    				<button class="btn btn-sm btn-primary" v-if="acara.status == 1" data-toggle="modal" data-target="#modalEditUsulan" @click="editUsulan(data.usulan.id)"><i class="fa fa-pencil"></i> Edit</button>
+						    				<button class="btn btn-sm btn-danger" v-if="acara.status == 1" @click="deleteUsulan(data.usulan.id)"><i class="fa fa-trash"></i> Hapus</button>
+						    				<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
+					    				</center>
 					    			</td>
 					    		</tr>
 					    	</table>
@@ -241,6 +250,89 @@
 
 				    <!-- Modal footer -->
 				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalEditUsulan">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Form Edit Usulan</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div v-if="kamusUsulan.nama_kamus">
+					    	<h5>Yang akan diusulkan</h5>
+					    	<table class="table table-bordered">
+					    		<tr>
+					    			<td>
+					    				{{kamusUsulan.nama_kamus}}
+					    				<br>
+					    				<p style="color: #333;font-size: 12px;">{{kamusUsulan.Defenisi_Operasional}}</p>
+					    				
+					    				Rp. {{kamusUsulan.harga_kamus.toLocaleString()}} / {{kamusUsulan.Satuan_Ket}}
+					    				<br>
+					    				<b>{{kamusUsulan.SKPD_Ket}}</b>
+
+					    				<br>
+					    			</td>
+					    		</tr>
+					    	</table>
+
+					    	<h5>Detail Usulan</h5>
+					    	<div class="alert alert-success" role="alert" v-if="usulanSuccessStatus">
+								Usulan Berhasil Diupdate
+							</div>
+							<div class="alert alert-danger" role="alert" v-if="usulanFailStatus">
+								Usulan Gagal Disimpan
+							</div>
+					    	<div class="form-group">
+					    		<label>Jumlah / Volume (Rp. {{hargaTotal.toLocaleString()}})</label>
+					    		<input type="tel" class="form-control" v-model="usulan.Jumlah" @keypress="isNumber($event)">
+					    	</div>
+
+					    	<div class="form-group">
+					    		<label>Kecamatan</label>
+					    		<select class="form-control" v-model="usulan.Kd_Kec">
+					    			<option v-for="kecamatan in dapil.kecamatan" :value="kecamatan.Kd_Kec">{{kecamatan.Nm_Kec}}</option>
+					    		</select>
+					    	</div>
+
+					    	<div class="form-group">
+					    		<label>Detail Lokasi</label>
+					    		<textarea class="form-control" v-model="usulan.Detail_Lokasi"></textarea>
+					    	</div>
+
+					    	<div class="form-group">
+					    		<label>Permasalahan</label>
+					    		<textarea class="form-control" v-model="usulan.Nm_Permasalahan"></textarea>
+					    	</div>
+
+					    	<div class="form-group">
+					    		<label>Bidang Pembangunan</label>
+					    		<select class="form-control" v-model="usulan.Kd_Pem">
+					    			<option v-for="bidang_pembangunan in bidPembangunan" :value="bidang_pembangunan.Kd_Pem">{{bidang_pembangunan.Bidang_Pembangunan}}</option>
+					    		</select>
+					    	</div>
+
+					    	<div class="form-group">
+					    		<label>Prioritas Pembangunan Daerah</label>
+					    		<select class="form-control" v-model="usulan.Kd_Prioritas_Pembangunan_Daerah">
+					    			<option v-for="prioritas_pembangunan in rpjmd" :value="prioritas_pembangunan.Kd_Prioritas_Pembangunan_Kota">{{prioritas_pembangunan.Nm_Prioritas_Pembangunan_Kota}}</option>
+					    		</select>
+					    	</div>
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button class="btn btn-primary" @click="updateUsulan()">Edit Usulan</button>
 				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				    </div>
 				</div>
@@ -285,6 +377,48 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="modalBerkas">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Berkas Pendukung</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div style="max-height:450px;overflow-x: auto;" class="container">
+				    		<div class="upload-btn-wrapper">
+				    			<button class="btn btn-primary btn-block btn-upload"><i class="fa fa-cloud-upload"></i> Upload Berkas</button>
+				    			<input type="file" multiple="" @change="initFile" accept='image/*'/>
+				    		</div>
+
+					    	<div class="row" id="lcl_elems_wrapper">
+					    		<div class="col-sm-12">
+				    				{{uploadingMessage}}
+					    		</div>
+					    		<div class="col-sm-12 col-md-4" v-for="berkas in berkasUsulans">
+					    			<div class="image-float-action-button">
+					    				<button class="btn btn-danger" @click="deleteMedia(berkas.Kd_Media)"><i class="fa fa-trash"></i></button>
+					    			</div>
+					    			<a :href="mediaUrl+'/'+berkas.Nm_Media" :title="berkas.Judul_Media" :data-lcl-txt="berkas.Judul_Media" :data-lcl-author="user.username">
+						    			<img :src="mediaUrl+'/'+berkas.Nm_Media" width="100%" class="image-border">
+						    		</a>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </template>
 
@@ -293,6 +427,8 @@ export default {
 	data(){
 		return {
 			auth:{},
+			id_usulan		:0,
+			berkasUsulans	:{},
 			dataUsulans		:{},
 			dataRiwayats	:{},
 			kamusUsulans	:{},
@@ -305,9 +441,11 @@ export default {
 			usulan 			:{},
 			token 			:'',
 			env 			:'',
+			uploadingMessage:'',
 			role_name 		:'',
 			keyword			:'',
 			message 		:'',
+			mediaUrl 		:'',
 			loader 			:true,
 			loginSuccessStatus 	:0,
 			loginFailStatus		:0,
@@ -320,10 +458,12 @@ export default {
 		this.env = window.config.getEnv()
 		this.token = window.localStorage.getItem('eplanning_pokir_token')
 		this.role_name = window.config.getRoleName()
+		this.mediaUrl = window.config.getMediaUrl()
 		this.authChecker()
 		await this.loadAcara()
 		await this.loadBidangPembangunan()
 		await this.loadRpjmd()
+		await this.loadKamus()
 	},
 	methods: {
 		authChecker(){
@@ -345,11 +485,7 @@ export default {
 		},
 		async mulaiReses(){
 			var vm = this
-			let response = await fetch(window.config.getApiUrl()+'api/mulai-reses',{
-				headers:{
-					'Authorization':'Bearer '+this.token
-				}
-			})
+			let response = await fetch(window.config.getApiUrl()+'api/mulai-reses&token='+this.token)
 			let data = await response.json()
 			if(data.status == 'success')
 				vm.loadAcara()
@@ -357,11 +493,7 @@ export default {
 		},
 		resetData(){
 			var vm = this
-			fetch(window.config.getApiUrl()+'api/reset-reses',{
-				headers:{
-					'Authorization':'Bearer '+this.token
-				},
-			})
+			fetch(window.config.getApiUrl()+'api/reset-reses&token='+this.token)
 			.then(res => res.json())
 			.then(res => {
 				if(res.status == 'success')
@@ -380,11 +512,7 @@ export default {
 			  confirmButtonText: 'Ya, Kirim Usulan!'
 			}).then((result) => {
 			  if (result.value) {
-			    fetch(window.config.getApiUrl()+'api/selesai-reses',{
-					headers:{
-						'Authorization':'Bearer '+this.token
-					},
-				})
+			    fetch(window.config.getApiUrl()+'api/selesai-reses&token='+this.token)
 				.then(res => res.json())
 				.then(res => {
 					if(res.status == 'success')
@@ -434,6 +562,117 @@ export default {
 			},2500)
 	    	return data
 	    },
+	    async updateUsulan(){
+	    	let response = await fetch(window.config.getApiUrl()+'api/update-usulan-reses',{
+	    		method:'POST',
+	    		body:JSON.stringify({id:this.id_usulan,token:this.token,usulan:this.usulan,kamusUsulan:this.kamusUsulan})
+	    	})
+
+	    	let data = await response.json()
+	    	if(data.status == 'success')
+	    	{
+	    		this.usulanSuccessStatus = 1
+	    	}
+	    	else
+	    	{
+	    		this.usulanFailStatus = 1
+	    	}
+	    	this.loadDataUsulans()
+	    	var vm = this
+			setTimeout(()=>{
+				vm.usulanSuccessStatus = 0
+				vm.usulanFailStatus = 0
+			},2500)
+	    	return data
+	    },
+	    async initFile(event){
+	    	this.uploadingMessage = "Uploading..."
+	    	var files = event.target.files
+	    	var numOfFile = files.length
+	    	var formData = new FormData();
+	    	for(var i=0;i<numOfFile;i++)
+	    	{
+	    		formData.append('imageFile[]',files[i])
+	    	}
+
+	    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-reses&token='+this.token+'&id='+this.id_usulan,{
+	    		method:'POST',
+	    		body:formData
+	    	})
+
+	    	let data = await response.json()
+	    	this.uploadingMessage = "Berkas berhasil di upload"
+	    	await this.loadBerkas(this.id_usulan)
+	    	var vm = this
+			setTimeout(()=>{
+				this.uploadingMessage = ''
+			},2500)
+	    	return data
+	    },
+	    async loadBerkas(id){
+	    	this.id_usulan = id
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-media&id='+id)
+			let data = await response.json()
+			this.berkasUsulans = data
+			return data
+	    },
+	    deleteUsulan(id){
+	    	var vm = this
+			Swal.fire({
+			  title: 'Konfirmasi ?',
+			  text: "Apakah anda yakin menghapus data usulan ini?",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Ya, Hapus Usulan!'
+			}).then((result) => {
+			  if (result.value) {
+			    fetch(window.config.getApiUrl()+'api/hapus-usulan-reses',{
+		    		method:'POST',
+		    		body:JSON.stringify({id:id,token:this.token})
+		    	})
+		    	.then(res => res.json())
+		    	.then(res => {
+		    		if(res.status == 'success')
+			    	{
+			    		vm.usulanSuccessStatus = 1
+			    	}
+			    	else
+			    	{
+			    		vm.usulanFailStatus = 1
+			    	}
+			    	vm.loadDataUsulans()
+					setTimeout(()=>{
+						vm.usulanSuccessStatus = 0
+						vm.usulanFailStatus = 0
+					},2500)
+		    	})
+			  }
+			})
+	    	
+	    },
+	    deleteMedia(id){
+	    	var vm = this
+			Swal.fire({
+			  title: 'Konfirmasi ?',
+			  text: "Apakah anda yakin menghapus berkas usulan ini?",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Ya, Hapus Berkas!'
+			}).then((result) => {
+			  if (result.value) {
+			    fetch(window.config.getApiUrl()+'api/hapus-media&id='+id)
+		    	.then(res => res.json())
+		    	.then(res => {
+			    	vm.loadBerkas()
+		    	})
+			  }
+			})
+	    	
+	    },
 		async loadKamus(){
 			var param = this.keyword == '' ? '' : '&param='+this.keyword
 			let response = await fetch(window.config.getApiUrl()+'api/kamus'+param)
@@ -442,11 +681,7 @@ export default {
 			return data
 		},
 		async loadDataUsulans(){
-			let response = await fetch(window.config.getApiUrl()+'api/usulan-reses',{
-				headers:{
-					'Authorization':'Bearer '+this.token
-				}
-			})
+			let response = await fetch(window.config.getApiUrl()+'api/usulan-reses&token='+this.token)
 			let data = await response.json()
 			this.dataUsulans = data
 			return data
@@ -457,14 +692,17 @@ export default {
 			this.dataRiwayats = data
 			return data
 		},
+		async editUsulan(id){
+			this.id_usulan = id
+			let response = await fetch(window.config.getApiUrl()+'api/get-reses&id='+id)
+			let data = await response.json()
+			this.usulan = data
+			this.kamusUsulan = this.kamusUsulans.find(o => o.kode_kamus === data.Kd_Kamus_Usulan)
+			return data
+		},
 		async loadAcara()
 		{
-			let response = await fetch(window.config.getApiUrl()+'api/acara-reses',{
-				headers:{
-					'Authorization':'Bearer '+this.token
-				}
-			})
-
+			let response = await fetch(window.config.getApiUrl()+'api/acara-reses&token='+this.token)
 			let data = await response.json()
 			this.acara = data
 			return data
@@ -488,10 +726,37 @@ export default {
 	},
 	computed:{
 		hargaTotal: function() {
-			if(!this.usulan.jumlah)
-				return 0;
-			return this.kamusUsulan.harga_kamus * this.usulan.jumlah
+			var harga = 0
+			if(this.usulan.jumlah)
+				harga = this.kamusUsulan.harga_kamus * this.usulan.jumlah
+			if(this.usulan.Jumlah)
+				harga = this.kamusUsulan.harga_kamus * this.usulan.Jumlah
+
+			return harga
 		}
 	}
 }
 </script>
+
+<style type="text/css">
+.upload-btn-wrapper {
+	width: 100%;
+  	position: relative;
+  	overflow: hidden;
+  	display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  	font-size: 100px;
+  	position: absolute;
+  	left: 0;
+  	top: 0;
+  	opacity: 0;
+}
+.image-float-action-button {
+	position: absolute;
+}
+.image-border {
+	border:1px solid #eaeaea;
+}
+</style>

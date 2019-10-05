@@ -7,6 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel='stylesheet' href='lc_lightbox/css/lc_lightbox.min.css' />
+	<link rel='stylesheet' href='lc_lightbox/skins/minimal.css' />
 </head>
 <body>
 <div id="app">
@@ -17,5 +19,11 @@
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src='lc_lightbox/js/lc_lightbox.lite.min.js' type='text/javascript'></script>
+<script type='text/javascript'>
+$(document).ready(function() {
+    var $obj = lc_lightbox('#lcl_elems_wrapper a');
+});
+</script>
 </body>
 </html>
