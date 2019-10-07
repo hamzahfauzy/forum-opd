@@ -476,11 +476,14 @@
 					    		</tr>
 					    		<tr v-for="berkas in berkasDokumens">
 					    			<td>
-					    				<a :href="mediaUrl+'/'+berkas.Nm_Media" :title="berkas.Judul_Media" :data-lcl-txt="berkas.Judul_Media" :data-lcl-author="user.username">
-							    			{{berkas.Judul_Media}}
+					    				<a target="_blank" :href="mediaUrl+'/'+berkas.Media.Nm_Media" :title="berkas.Media.Judul_Media" :data-lcl-txt="berkas.Media.Judul_Media" :data-lcl-author="user.username">
+							    			{{berkas.Jenis_Dokumen}}
 							    		</a>
-					    				<br>
-							    		<button class="btn btn-danger" @click="deleteMedia(berkas.Kd_Media)"><i class="fa fa-trash"></i></button>
+					    			</td>
+					    			<td width="20%">
+					    				<a target="_blank" :href="mediaUrl+'/'+berkas.Media.Nm_Media" class="btn btn-success">
+					    					<i class="fa fa-download"></i> Download
+					    				</a>
 					    			</td>
 					    		</tr>
 					    	</table>
@@ -553,6 +556,8 @@ export default {
 		await this.loadBidangPembangunan()
 		await this.loadRpjmd()
 		await this.loadKamus()
+		await this.loadBerkasKegiatan()
+		this.loader = true
 	},
 	methods: {
 		async authChecker(){
@@ -568,7 +573,6 @@ export default {
 			{
 				this.user = await data.data
 				this.dapil = await data.dapil		
-				this.loader = true
 			}
 			return data
 		},
@@ -698,7 +702,52 @@ export default {
 	    	return data
 	    },
 	    async initFileDokumen(event){
+	    	var vm = this
+	    	var files = event.target.files
+	    	if(!files)
+	    		return
+	    	Swal.fire({
+			  title: 'Pilih Jenis Dokumen',
+			  input: 'select',
+			  inputOptions: {
+			    'Absensi': 'Absensi',
+			    'Berita Acara': 'Berita Acara',
+			    'Foto': 'Foto',
+			    'Video': 'Video',
+			    'Pakta Integritas': 'Pakta Integritas',
+			},
+			inputPlaceholder: '- Pilih -',
+			showCancelButton: true,
+			  inputValidator: function (value) {
+			    return new Promise(function (resolve, reject) {
+			      if (value !== '') {
+			        resolve();
+			      } else {
+			        resolve('Jenis berkas harus dipilih');
+			      }
+			    });
+			  }
+			}).then(async function (result) {
+			  if (result.value) {
+			  	var numOfFile = files.length
+		    	var formData = new FormData();
+		    	for(var i=0;i<numOfFile;i++)
+		    	{
+		    		formData.append('imageFile[]',files[i])
+		    	}
+		    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-kegiatan-reses&token='+vm.token+'&jenis='+result.value,{
+		    		method:'POST',
+		    		body:formData
+		    	})
 
+		    	let data = await response.json()
+			    Swal.fire({
+			      type: 'success',
+			      html: result.value + ' Berhasil di upload'
+			    });
+			    vm.loadBerkasKegiatan()
+			  }
+			});
 	    },
 	    async initFile(event){
 	    	var files = event.target.files
@@ -731,6 +780,12 @@ export default {
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-media&id='+id)
 			let data = await response.json()
 			this.berkasUsulans = data
+			return data
+	    },
+	    async loadBerkasKegiatan(){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-media-kegiatan&token='+this.token)
+			let data = await response.json()
+			this.berkasDokumens = data
 			return data
 	    },
 	    deleteUsulan(id){
