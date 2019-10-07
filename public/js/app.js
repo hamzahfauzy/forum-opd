@@ -557,12 +557,90 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       auth: {},
       id_usulan: 0,
       berkasUsulans: {},
+      berkasDokumens: {},
       dataUsulans: {},
       dataRiwayats: {},
       kamusUsulans: {},
@@ -571,7 +649,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       rpjmd: {},
       user: {},
       acara: {},
-      dapil: {},
+      dapil: {
+        dewan: {
+          Nm_Dewan: ''
+        },
+        fraksi: {
+          Nm_Fraksi: ''
+        },
+        komisi: {
+          Nm_Komisi: ''
+        }
+      },
       usulan: {},
       token: '',
       env: '',
@@ -600,23 +688,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               this.token = window.localStorage.getItem('eplanning_pokir_token');
               this.role_name = window.config.getRoleName();
               this.mediaUrl = window.config.getMediaUrl();
-              this.authChecker();
+              this.linkCetakUsulan = window.config.getLinkCetakUsulanPokir();
               _context.next = 8;
-              return this.loadAcara();
+              return this.authChecker();
 
             case 8:
               _context.next = 10;
-              return this.loadBidangPembangunan();
+              return this.loadAcara();
 
             case 10:
               _context.next = 12;
-              return this.loadRpjmd();
+              return this.loadBidangPembangunan();
 
             case 12:
               _context.next = 14;
-              return this.loadKamus();
+              return this.loadRpjmd();
 
             case 14:
+              _context.next = 16;
+              return this.loadKamus();
+
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -631,54 +723,100 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return created;
   }(),
   methods: {
-    authChecker: function authChecker() {
-      var _this = this;
-
-      fetch(window.config.getApiUrl() + 'api/auth-checker', {
-        method: 'POST',
-        body: JSON.stringify({
-          token: this.token,
-          level: this.role_name
-        })
-      }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        if (res.status == 'error') location = 'login.html';else {
-          _this.user = res.data;
-          _this.dapil = res.dapil;
-          _this.loader = true;
-        }
-      });
-    },
-    mulaiReses: function () {
-      var _mulaiReses = _asyncToGenerator(
+    authChecker: function () {
+      var _authChecker = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var vm, response, data;
+        var response, data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                vm = this;
-                _context2.next = 3;
-                return fetch(window.config.getApiUrl() + 'api/mulai-reses&token=' + this.token);
+                _context2.next = 2;
+                return fetch(window.config.getApiUrl() + 'api/auth-checker', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    token: this.token,
+                    level: this.role_name
+                  })
+                });
 
-              case 3:
+              case 2:
                 response = _context2.sent;
-                _context2.next = 6;
+                _context2.next = 5;
                 return response.json();
 
-              case 6:
+              case 5:
                 data = _context2.sent;
-                if (data.status == 'success') vm.loadAcara();
+
+                if (!(data.status == 'error')) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                location = 'login.html';
+                _context2.next = 17;
+                break;
+
+              case 10:
+                _context2.next = 12;
+                return data.data;
+
+              case 12:
+                this.user = _context2.sent;
+                _context2.next = 15;
+                return data.dapil;
+
+              case 15:
+                this.dapil = _context2.sent;
+                this.loader = true;
+
+              case 17:
                 return _context2.abrupt("return", data);
 
-              case 9:
+              case 18:
               case "end":
                 return _context2.stop();
             }
           }
         }, _callee2, this);
+      }));
+
+      function authChecker() {
+        return _authChecker.apply(this, arguments);
+      }
+
+      return authChecker;
+    }(),
+    mulaiReses: function () {
+      var _mulaiReses = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var vm, response, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                vm = this;
+                _context3.next = 3;
+                return fetch(window.config.getApiUrl() + 'api/mulai-reses&token=' + this.token);
+
+              case 3:
+                response = _context3.sent;
+                _context3.next = 6;
+                return response.json();
+
+              case 6:
+                data = _context3.sent;
+                if (data.status == 'success') vm.loadAcara();
+                return _context3.abrupt("return", data);
+
+              case 9:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
       }));
 
       function mulaiReses() {
@@ -687,6 +825,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return mulaiReses;
     }(),
+    cetakUsulan: function cetakUsulan() {
+      location = "http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/index.php?r=api/cetak-rekapitulasi&token=" + this.token;
+    },
     resetData: function resetData() {
       var vm = this;
       fetch(window.config.getApiUrl() + 'api/reset-reses&token=' + this.token).then(function (res) {
@@ -696,7 +837,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     selesaiReses: function selesaiReses() {
-      var _this2 = this;
+      var _this = this;
 
       var vm = this;
       Swal.fire({
@@ -709,7 +850,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         confirmButtonText: 'Ya, Kirim Usulan!'
       }).then(function (result) {
         if (result.value) {
-          fetch(window.config.getApiUrl() + 'api/selesai-reses&token=' + _this2.token).then(function (res) {
+          fetch(window.config.getApiUrl() + 'api/selesai-reses&token=' + _this.token).then(function (res) {
             return res.json();
           }).then(function (res) {
             if (res.status == 'success') vm.loadAcara();
@@ -736,63 +877,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       window.localStorage.removeItem('eplanning_pokir_token');
       location = 'login.html';
     },
+    openFileUpload: function openFileUpload() {
+      document.querySelector('input[name=file_dokumen]').click();
+    },
     sendUsulan: function () {
       var _sendUsulan = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var response, data, vm;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return fetch(window.config.getApiUrl() + 'api/simpan-usulan-reses', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    token: this.token,
-                    usulan: this.usulan,
-                    kamusUsulan: this.kamusUsulan
-                  })
-                });
-
-              case 2:
-                response = _context3.sent;
-                _context3.next = 5;
-                return response.json();
-
-              case 5:
-                data = _context3.sent;
-
-                if (data.status == 'success') {
-                  this.usulan = {};
-                  this.usulanSuccessStatus = 1;
-                } else {
-                  this.usulanFailStatus = 1;
-                }
-
-                vm = this;
-                setTimeout(function () {
-                  vm.usulanSuccessStatus = 0;
-                  vm.usulanFailStatus = 0;
-                }, 2500);
-                return _context3.abrupt("return", data);
-
-              case 10:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function sendUsulan() {
-        return _sendUsulan.apply(this, arguments);
-      }
-
-      return sendUsulan;
-    }(),
-    updateUsulan: function () {
-      var _updateUsulan = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var response, data, vm;
@@ -801,10 +890,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return fetch(window.config.getApiUrl() + 'api/update-usulan-reses', {
+                return fetch(window.config.getApiUrl() + 'api/simpan-usulan-reses', {
                   method: 'POST',
                   body: JSON.stringify({
-                    id: this.id_usulan,
                     token: this.token,
                     usulan: this.usulan,
                     kamusUsulan: this.kamusUsulan
@@ -820,6 +908,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 data = _context4.sent;
 
                 if (data.status == 'success') {
+                  this.usulan = {};
+                  this.usulanSuccessStatus = 1;
+                } else {
+                  this.usulanFailStatus = 1;
+                }
+
+                vm = this;
+                setTimeout(function () {
+                  vm.usulanSuccessStatus = 0;
+                  vm.usulanFailStatus = 0;
+                }, 2500);
+                return _context4.abrupt("return", data);
+
+              case 10:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function sendUsulan() {
+        return _sendUsulan.apply(this, arguments);
+      }
+
+      return sendUsulan;
+    }(),
+    updateUsulan: function () {
+      var _updateUsulan = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var response, data, vm;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return fetch(window.config.getApiUrl() + 'api/update-usulan-reses', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    id: this.id_usulan,
+                    token: this.token,
+                    usulan: this.usulan,
+                    kamusUsulan: this.kamusUsulan
+                  })
+                });
+
+              case 2:
+                response = _context5.sent;
+                _context5.next = 5;
+                return response.json();
+
+              case 5:
+                data = _context5.sent;
+
+                if (data.status == 'success') {
                   this.usulanSuccessStatus = 1;
                 } else {
                   this.usulanFailStatus = 1;
@@ -831,14 +975,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   vm.usulanSuccessStatus = 0;
                   vm.usulanFailStatus = 0;
                 }, 2500);
-                return _context4.abrupt("return", data);
+                return _context5.abrupt("return", data);
 
               case 11:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
       function updateUsulan() {
@@ -847,19 +991,102 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return updateUsulan;
     }(),
+    changeAvatar: function () {
+      var _changeAvatar = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(event) {
+        var file, formData, response, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                file = event.target.files[0];
+
+                if (file) {
+                  _context6.next = 3;
+                  break;
+                }
+
+                return _context6.abrupt("return");
+
+              case 3:
+                formData = new FormData();
+                formData.append('imgFile', file);
+                _context6.next = 7;
+                return fetch(window.config.getApiUrl() + 'api/change-avatar&token=' + this.token, {
+                  method: 'POST',
+                  body: formData
+                });
+
+              case 7:
+                response = _context6.sent;
+                _context6.next = 10;
+                return response.json();
+
+              case 10:
+                data = _context6.sent;
+                this.user.avatar_url = data.avatar_url; // this.uploadingMessage = "Berkas berhasil di upload"
+                // await this.loadBerkas(this.id_usulan)
+
+                return _context6.abrupt("return", data);
+
+              case 13:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function changeAvatar(_x) {
+        return _changeAvatar.apply(this, arguments);
+      }
+
+      return changeAvatar;
+    }(),
+    initFileDokumen: function () {
+      var _initFileDokumen = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(event) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }));
+
+      function initFileDokumen(_x2) {
+        return _initFileDokumen.apply(this, arguments);
+      }
+
+      return initFileDokumen;
+    }(),
     initFile: function () {
       var _initFile = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(event) {
-        var _this3 = this;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(event) {
+        var _this2 = this;
 
         var files, numOfFile, formData, i, response, data, vm;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
-                this.uploadingMessage = "Uploading...";
                 files = event.target.files;
+
+                if (files.length) {
+                  _context8.next = 3;
+                  break;
+                }
+
+                return _context8.abrupt("return");
+
+              case 3:
+                this.uploadingMessage = "Uploading...";
                 numOfFile = files.length;
                 formData = new FormData();
 
@@ -867,39 +1094,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   formData.append('imageFile[]', files[i]);
                 }
 
-                _context5.next = 7;
+                _context8.next = 9;
                 return fetch(window.config.getApiUrl() + 'api/upload-berkas-reses&token=' + this.token + '&id=' + this.id_usulan, {
                   method: 'POST',
                   body: formData
                 });
 
-              case 7:
-                response = _context5.sent;
-                _context5.next = 10;
+              case 9:
+                response = _context8.sent;
+                _context8.next = 12;
                 return response.json();
 
-              case 10:
-                data = _context5.sent;
+              case 12:
+                data = _context8.sent;
                 this.uploadingMessage = "Berkas berhasil di upload";
-                _context5.next = 14;
+                _context8.next = 16;
                 return this.loadBerkas(this.id_usulan);
 
-              case 14:
+              case 16:
                 vm = this;
                 setTimeout(function () {
-                  _this3.uploadingMessage = '';
+                  _this2.uploadingMessage = '';
                 }, 2500);
-                return _context5.abrupt("return", data);
+                return _context8.abrupt("return", data);
 
-              case 17:
+              case 19:
               case "end":
-                return _context5.stop();
+                return _context8.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee8, this);
       }));
 
-      function initFile(_x) {
+      function initFile(_x3) {
         return _initFile.apply(this, arguments);
       }
 
@@ -908,42 +1135,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadBerkas: function () {
       var _loadBerkas = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(id) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(id) {
         var response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 this.id_usulan = id;
-                _context6.next = 3;
+                _context9.next = 3;
                 return fetch(window.config.getApiUrl() + 'api/get-media&id=' + id);
 
               case 3:
-                response = _context6.sent;
-                _context6.next = 6;
+                response = _context9.sent;
+                _context9.next = 6;
                 return response.json();
 
               case 6:
-                data = _context6.sent;
+                data = _context9.sent;
                 this.berkasUsulans = data;
-                return _context6.abrupt("return", data);
+                return _context9.abrupt("return", data);
 
               case 9:
               case "end":
-                return _context6.stop();
+                return _context9.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee9, this);
       }));
 
-      function loadBerkas(_x2) {
+      function loadBerkas(_x4) {
         return _loadBerkas.apply(this, arguments);
       }
 
       return loadBerkas;
     }(),
     deleteUsulan: function deleteUsulan(id) {
-      var _this4 = this;
+      var _this3 = this;
 
       var vm = this;
       Swal.fire({
@@ -960,7 +1187,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             method: 'POST',
             body: JSON.stringify({
               id: id,
-              token: _this4.token
+              token: _this3.token
             })
           }).then(function (res) {
             return res.json();
@@ -1003,32 +1230,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadKamus: function () {
       var _loadKamus = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
         var param, response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 param = this.keyword == '' ? '' : '&param=' + this.keyword;
-                _context7.next = 3;
+                _context10.next = 3;
                 return fetch(window.config.getApiUrl() + 'api/kamus' + param);
 
               case 3:
-                response = _context7.sent;
-                _context7.next = 6;
+                response = _context10.sent;
+                _context10.next = 6;
                 return response.json();
 
               case 6:
-                data = _context7.sent;
+                data = _context10.sent;
                 this.kamusUsulans = data;
-                return _context7.abrupt("return", data);
+                return _context10.abrupt("return", data);
 
               case 9:
               case "end":
-                return _context7.stop();
+                return _context10.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee10, this);
       }));
 
       function loadKamus() {
@@ -1040,31 +1267,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadDataUsulans: function () {
       var _loadDataUsulans = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
         var response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
-                _context8.next = 2;
+                _context11.next = 2;
                 return fetch(window.config.getApiUrl() + 'api/usulan-reses&token=' + this.token);
 
               case 2:
-                response = _context8.sent;
-                _context8.next = 5;
+                response = _context11.sent;
+                _context11.next = 5;
                 return response.json();
 
               case 5:
-                data = _context8.sent;
+                data = _context11.sent;
                 this.dataUsulans = data;
-                return _context8.abrupt("return", data);
+                return _context11.abrupt("return", data);
 
               case 8:
               case "end":
-                return _context8.stop();
+                return _context11.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee11, this);
       }));
 
       function loadDataUsulans() {
@@ -1076,34 +1303,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     tampilRiwayat: function () {
       var _tampilRiwayat = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(id) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(id) {
         var response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
-                _context9.next = 2;
+                _context12.next = 2;
                 return fetch(window.config.getApiUrl() + 'api/riwayat-usulan&id=' + id);
 
               case 2:
-                response = _context9.sent;
-                _context9.next = 5;
+                response = _context12.sent;
+                _context12.next = 5;
                 return response.json();
 
               case 5:
-                data = _context9.sent;
+                data = _context12.sent;
                 this.dataRiwayats = data;
-                return _context9.abrupt("return", data);
+                return _context12.abrupt("return", data);
 
               case 8:
               case "end":
-                return _context9.stop();
+                return _context12.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee12, this);
       }));
 
-      function tampilRiwayat(_x3) {
+      function tampilRiwayat(_x5) {
         return _tampilRiwayat.apply(this, arguments);
       }
 
@@ -1112,38 +1339,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     editUsulan: function () {
       var _editUsulan = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(id) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(id) {
         var response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context13.prev = _context13.next) {
               case 0:
                 this.id_usulan = id;
-                _context10.next = 3;
+                _context13.next = 3;
                 return fetch(window.config.getApiUrl() + 'api/get-reses&id=' + id);
 
               case 3:
-                response = _context10.sent;
-                _context10.next = 6;
+                response = _context13.sent;
+                _context13.next = 6;
                 return response.json();
 
               case 6:
-                data = _context10.sent;
+                data = _context13.sent;
                 this.usulan = data;
                 this.kamusUsulan = this.kamusUsulans.find(function (o) {
                   return o.kode_kamus === data.Kd_Kamus_Usulan;
                 });
-                return _context10.abrupt("return", data);
+                return _context13.abrupt("return", data);
 
               case 10:
               case "end":
-                return _context10.stop();
+                return _context13.stop();
             }
           }
-        }, _callee10, this);
+        }, _callee13, this);
       }));
 
-      function editUsulan(_x4) {
+      function editUsulan(_x6) {
         return _editUsulan.apply(this, arguments);
       }
 
@@ -1152,31 +1379,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadAcara: function () {
       var _loadAcara = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14() {
         var response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee14$(_context14) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context14.prev = _context14.next) {
               case 0:
-                _context11.next = 2;
+                _context14.next = 2;
                 return fetch(window.config.getApiUrl() + 'api/acara-reses&token=' + this.token);
 
               case 2:
-                response = _context11.sent;
-                _context11.next = 5;
+                response = _context14.sent;
+                _context14.next = 5;
                 return response.json();
 
               case 5:
-                data = _context11.sent;
+                data = _context14.sent;
                 this.acara = data;
-                return _context11.abrupt("return", data);
+                return _context14.abrupt("return", data);
 
               case 8:
               case "end":
-                return _context11.stop();
+                return _context14.stop();
             }
           }
-        }, _callee11, this);
+        }, _callee14, this);
       }));
 
       function loadAcara() {
@@ -1188,26 +1415,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadBidangPembangunan: function () {
       var _loadBidangPembangunan = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12() {
-        var _this5 = this;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15() {
+        var _this4 = this;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee15$(_context15) {
           while (1) {
-            switch (_context12.prev = _context12.next) {
+            switch (_context15.prev = _context15.next) {
               case 0:
-                _context12.next = 2;
+                _context15.next = 2;
                 return fetch(window.config.getApiUrl() + 'api/bidang-pembangunan').then(function (res) {
                   return res.json();
                 }).then(function (res) {
-                  _this5.bidPembangunan = res;
+                  _this4.bidPembangunan = res;
                 });
 
               case 2:
               case "end":
-                return _context12.stop();
+                return _context15.stop();
             }
           }
-        }, _callee12);
+        }, _callee15);
       }));
 
       function loadBidangPembangunan() {
@@ -1219,26 +1446,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadRpjmd: function () {
       var _loadRpjmd = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13() {
-        var _this6 = this;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16() {
+        var _this5 = this;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee16$(_context16) {
           while (1) {
-            switch (_context13.prev = _context13.next) {
+            switch (_context16.prev = _context16.next) {
               case 0:
-                _context13.next = 2;
+                _context16.next = 2;
                 return fetch(window.config.getApiUrl() + 'api/rpjmd').then(function (res) {
                   return res.json();
                 }).then(function (res) {
-                  _this6.rpjmd = res;
+                  _this5.rpjmd = res;
                 });
 
               case 2:
               case "end":
-                return _context13.stop();
+                return _context16.stop();
             }
           }
-        }, _callee13);
+        }, _callee16);
       }));
 
       function loadRpjmd() {
@@ -1440,7 +1667,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n.upload-btn-wrapper {\n\twidth: 100%;\n  \tposition: relative;\n  \toverflow: hidden;\n  \tdisplay: inline-block;\n}\n.upload-btn-wrapper input[type=file] {\n  \tfont-size: 100px;\n  \tposition: absolute;\n  \tleft: 0;\n  \ttop: 0;\n  \topacity: 0;\n}\n.image-float-action-button {\n\tposition: absolute;\n}\n.image-border {\n\tborder:1px solid #eaeaea;\n}\n", ""]);
+exports.push([module.i, "\n.upload-btn-wrapper {\n  \t/*position: relative;*/\n  \toverflow: hidden;\n  \theight: 0px;\n  \t/*display: inline-block;*/\n}\n.upload-btn-wrapper input[type=file] {\n  \t/*font-size: 100px;*/\n  \t/*position: absolute;*/\n  \tleft: 0;\n  \ttop: 0;\n  \topacity: 0;\n}\n.image-float-action-button {\n\tposition: absolute;\n}\n.image-border {\n\tborder:1px solid #eaeaea;\n}\n", ""]);
 
 // exports
 
@@ -6226,7 +6453,9 @@ var render = function() {
         _c("img", {
           staticClass: "profile-picture",
           attrs: {
-            src: "assets/face1.jpg",
+            src: _vm.user.avatar_url
+              ? _vm.mediaUrl + "/" + _vm.user.avatar_url
+              : "assets/face1.jpg",
             width: "100px",
             height: "100px",
             "data-toggle": "modal",
@@ -6237,7 +6466,7 @@ var render = function() {
         _c("p"),
         _vm._v(" "),
         _c("h2", { staticClass: "username-label" }, [
-          _vm._v(_vm._s(_vm.user.username))
+          _vm._v(_vm._s(_vm.dapil.dewan.Nm_Dewan))
         ]),
         _vm._v(" "),
         _c("h4", [_vm._v("Selamat Datang di E-Pokir Kabupaten Asahan")]),
@@ -6298,9 +6527,18 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _vm.acara.status > 0
-            ? _c("a", { staticClass: "btn me-btn", attrs: { href: "#" } }, [
-                _vm._v("Dokumen")
-              ])
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn me-btn",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#modalDokumen"
+                  }
+                },
+                [_vm._v("Dokumen")]
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.acara.status == 1
@@ -6411,7 +6649,11 @@ var render = function() {
                   "a",
                   {
                     staticClass: "col-sm-12 col-md-4 btn me-btn",
-                    attrs: { href: "#" }
+                    attrs: {
+                      href: "#",
+                      "data-toggle": "modal",
+                      "data-target": "#modalDokumen"
+                    }
                   },
                   [_vm._v("Dokumen")]
                 )
@@ -6489,27 +6731,18 @@ var render = function() {
                     _c("img", {
                       staticClass: "profile-picture",
                       attrs: {
-                        src: "assets/face1.jpg",
+                        src: _vm.user.avatar_url
+                          ? _vm.mediaUrl + "/" + _vm.user.avatar_url
+                          : "assets/face1.jpg",
                         width: "100px",
                         height: "100px"
                       }
                     }),
                     _vm._v(" "),
-                    _c("br"),
-                    _c(
-                      "a",
-                      {
-                        staticStyle: { "font-size": "10px" },
-                        attrs: { href: "#" }
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-pencil" }),
-                        _vm._v(" Ubah Avatar")
-                      ]
-                    ),
+                    _c("p"),
                     _vm._v(" "),
                     _c("h5", { staticClass: "username-label" }, [
-                      _vm._v(_vm._s(_vm.user.username))
+                      _vm._v(_vm._s(_vm.dapil.dewan.Nm_Dewan))
                     ])
                   ])
                 ],
@@ -6538,12 +6771,56 @@ var render = function() {
                     ])
                   }),
                   0
-                )
+                ),
+                _vm._v(" "),
+                _c("h5", [_vm._v("Fraksi")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [
+                    _vm._v(
+                      "\n\t\t\t    \t\t\t\t\t" +
+                        _vm._s(_vm.dapil.fraksi.Nm_Fraksi) +
+                        "\n\t\t\t    \t\t\t\t"
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("h5", [_vm._v("Komisi")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [
+                    _vm._v(
+                      "\n\t\t\t    \t\t\t\t\t" +
+                        _vm._s(_vm.dapil.komisi.Nm_Komisi) +
+                        "\n\t\t\t    \t\t\t\t"
+                    )
+                  ])
+                ])
               ])
             ])
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "modal-footer" }, [
+            _c("div", { staticClass: "upload-btn-wrapper" }, [
+              _c("button", { staticClass: "btn btn-primary btn-upload" }, [
+                _vm._v("Update Avatar")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "file", multiple: "", accept: "image/*" },
+                on: { change: _vm.changeAvatar }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Close")]
+            )
+          ])
         ])
       ])
     ]),
@@ -6551,7 +6828,7 @@ var render = function() {
     _c("div", { staticClass: "modal fade", attrs: { id: "modalKamus" } }, [
       _c("div", { staticClass: "modal-dialog modal-lg" }, [
         _c("div", { staticClass: "modal-content no-border-radius" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -6654,7 +6931,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(3)
+          _vm._m(2)
         ])
       ])
     ]),
@@ -6662,7 +6939,7 @@ var render = function() {
     _c("div", { staticClass: "modal fade", attrs: { id: "modalUsulan" } }, [
       _c("div", { staticClass: "modal-dialog modal-lg" }, [
         _c("div", { staticClass: "modal-content no-border-radius" }, [
-          _vm._m(4),
+          _vm._m(3),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _vm.kamusUsulan.nama_kamus
@@ -7015,7 +7292,7 @@ var render = function() {
     _c("div", { staticClass: "modal fade", attrs: { id: "modalDataUsulan" } }, [
       _c("div", { staticClass: "modal-dialog modal-lg" }, [
         _c("div", { staticClass: "modal-content no-border-radius" }, [
-          _vm._m(5),
+          _vm._m(4),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _c(
@@ -7051,6 +7328,23 @@ var render = function() {
                       ]
                     )
                   : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning",
+                    attrs: {
+                      href: _vm.linkCetakUsulan + _vm.token,
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-print" }),
+                    _vm._v(" Cetak Usulan")
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p"),
                 _vm._v(" "),
                 _c(
                   "table",
@@ -7203,7 +7497,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(6)
+          _vm._m(5)
         ])
       ])
     ]),
@@ -7211,7 +7505,7 @@ var render = function() {
     _c("div", { staticClass: "modal fade", attrs: { id: "modalEditUsulan" } }, [
       _c("div", { staticClass: "modal-dialog modal-lg" }, [
         _c("div", { staticClass: "modal-content no-border-radius" }, [
-          _vm._m(7),
+          _vm._m(6),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _vm.kamusUsulan.nama_kamus
@@ -7564,7 +7858,7 @@ var render = function() {
     _c("div", { staticClass: "modal fade", attrs: { id: "modalRiwayat" } }, [
       _c("div", { staticClass: "modal-dialog modal-lg" }, [
         _c("div", { staticClass: "modal-content no-border-radius" }, [
-          _vm._m(8),
+          _vm._m(7),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _c(
@@ -7630,7 +7924,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(9)
+          _vm._m(8)
         ])
       ])
     ]),
@@ -7638,7 +7932,7 @@ var render = function() {
     _c("div", { staticClass: "modal fade", attrs: { id: "modalBerkas" } }, [
       _c("div", { staticClass: "modal-dialog modal-lg" }, [
         _c("div", { staticClass: "modal-content no-border-radius" }, [
-          _vm._m(10),
+          _vm._m(9),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
             _c(
@@ -7648,14 +7942,21 @@ var render = function() {
                 staticStyle: { "max-height": "450px", "overflow-x": "auto" }
               },
               [
-                _c("div", { staticClass: "upload-btn-wrapper" }, [
-                  _vm._m(11),
-                  _vm._v(" "),
-                  _c("input", {
-                    attrs: { type: "file", multiple: "", accept: "image/*" },
-                    on: { change: _vm.initFile }
-                  })
-                ]),
+                _c(
+                  "div",
+                  {
+                    staticClass: "upload-btn-wrapper",
+                    staticStyle: { width: "100%" }
+                  },
+                  [
+                    _vm._m(10),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: { type: "file", multiple: "", accept: "image/*" },
+                      on: { change: _vm.initFile }
+                    })
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -7668,6 +7969,16 @@ var render = function() {
                           "\n\t\t\t\t    \t\t"
                       )
                     ]),
+                    _vm._v(" "),
+                    !_vm.berkasUsulans.length
+                      ? _c("div", { staticClass: "col-sm-12" }, [
+                          _c(
+                            "i",
+                            [_c("center", [_vm._v("Tidak ada berkas")])],
+                            1
+                          )
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm._l(_vm.berkasUsulans, function(berkas) {
                       return _c("div", { staticClass: "col-sm-12 col-md-4" }, [
@@ -7719,7 +8030,121 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(12)
+          _vm._m(11)
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "modalDokumen" } }, [
+      _c("div", { staticClass: "modal-dialog modal-lg" }, [
+        _c("div", { staticClass: "modal-content no-border-radius" }, [
+          _vm._m(12),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c(
+              "div",
+              {
+                staticClass: "container",
+                staticStyle: { "max-height": "450px", "overflow-x": "auto" }
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(13),
+                  _vm._v(" "),
+                  _vm._m(14),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-12 col-md-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-block btn-primary",
+                        on: { click: _vm.openFileUpload }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-cloud-upload" }),
+                        _vm._v(" Upload Berkas")
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "upload-btn-wrapper" }, [
+                  _c("input", {
+                    attrs: {
+                      type: "file",
+                      name: "file_dokumen",
+                      multiple: "",
+                      accept: "image/*"
+                    },
+                    on: { change: _vm.initFileDokumen }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("p"),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  { staticClass: "table table-bordered" },
+                  [
+                    !_vm.berkasDokumens.length
+                      ? _c("tr", [
+                          _c("td", [
+                            _c(
+                              "i",
+                              [_c("center", [_vm._v("Tidak ada berkas")])],
+                              1
+                            )
+                          ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.berkasDokumens, function(berkas) {
+                      return _c("tr", [
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: _vm.mediaUrl + "/" + berkas.Nm_Media,
+                                title: berkas.Judul_Media,
+                                "data-lcl-txt": berkas.Judul_Media,
+                                "data-lcl-author": _vm.user.username
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t    \t\t\t" +
+                                  _vm._s(berkas.Judul_Media) +
+                                  "\n\t\t\t\t\t\t    \t\t"
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteMedia(berkas.Kd_Media)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-trash" })]
+                          )
+                        ])
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(15)
         ])
       ])
     ])
@@ -7740,21 +8165,6 @@ var staticRenderFns = [
           attrs: { type: "button", "data-dismiss": "modal" }
         },
         [_vm._v("×")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
       )
     ])
   },
@@ -7914,6 +8324,65 @@ var staticRenderFns = [
       { staticClass: "btn btn-primary btn-block btn-upload" },
       [_c("i", { staticClass: "fa fa-cloud-upload" }), _vm._v(" Upload Berkas")]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Dokumen Kegiatan")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-12 col-md-4" }, [
+      _c(
+        "a",
+        { staticClass: "btn btn-block btn-success", attrs: { href: "#" } },
+        [
+          _c("i", { staticClass: "fa fa-cloud-download" }),
+          _vm._v(" Unduh Absensi")
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-12 col-md-4" }, [
+      _c(
+        "a",
+        { staticClass: "btn btn-block btn-warning", attrs: { href: "#" } },
+        [_c("i", { staticClass: "fa fa-print" }), _vm._v(" Berita Acara")]
+      )
+    ])
   },
   function() {
     var _vm = this

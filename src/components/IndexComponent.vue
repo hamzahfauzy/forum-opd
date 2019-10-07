@@ -5,15 +5,15 @@
 		</div>
 		<div class="bg">
 			<div class="logo">
-				<img src="assets/face1.jpg" class="profile-picture" width="100px" height="100px" data-toggle="modal" data-target="#modalProfile">
+				<img :src="user.avatar_url ? mediaUrl+'/'+user.avatar_url : 'assets/face1.jpg'" class="profile-picture" width="100px" height="100px" data-toggle="modal" data-target="#modalProfile">
 				<p></p>
-				<h2 class="username-label">{{user.username}}</h2>
+				<h2 class="username-label">{{dapil.dewan.Nm_Dewan}}</h2>
 				<h4>Selamat Datang di E-Pokir Kabupaten Asahan</h4>
 				<div class="z-desktop">
 					<a href="#" class="btn me-btn" v-if="acara.status == 0" @click="mulaiReses()">Mulai Reses</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
-					<a href="#" class="btn me-btn" v-if="acara.status > 0">Dokumen</a>
+					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
 					<a href="#" class="btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Reses</a>
 					<a href="#" class="btn me-btn" v-if="env != 'production' && acara.status == 2" @click="resetData()">Reset</a>
 					<a href="#" class="btn me-btn" @click="doLogout()">Log Out</a>
@@ -23,7 +23,7 @@
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" @click="mulaiReses()">Mulai Reses</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
-						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status > 0">Dokumen</a>
+						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Reses</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="env != 'production' && acara.status == 2" @click="resetData()">Reset</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" @click="doLogout()">Log Out</a>
@@ -49,9 +49,9 @@
 				    	<div class="row">
 				    		<div class="col-sm-12 col-md-6">
 				    			<center>
-				    			<img src="assets/face1.jpg" class="profile-picture" width="100px" height="100px">
-				    			<br><a href="#" style="font-size: 10px;"><i class="fa fa-pencil"></i> Ubah Avatar</a>
-				    			<h5 class="username-label">{{user.username}}</h5>
+				    			<img :src="user.avatar_url ? mediaUrl+'/'+user.avatar_url : 'assets/face1.jpg'" class="profile-picture" width="100px" height="100px">
+				    			<p></p>
+				    			<h5 class="username-label">{{dapil.dewan.Nm_Dewan}}</h5>
 				    			</center>
 				    		</div>
 				    		<div class="col-sm-12 col-md-6">
@@ -65,12 +65,30 @@
 				    					{{kecamatan.Nm_Kec}}
 				    				</li>
 				    			</ul>
+
+				    			<h5>Fraksi</h5>
+				    			<ul>
+				    				<li>
+				    					{{dapil.fraksi.Nm_Fraksi}}
+				    				</li>
+				    			</ul>
+
+				    			<h5>Komisi</h5>
+				    			<ul>
+				    				<li>
+				    					{{dapil.komisi.Nm_Komisi}}
+				    				</li>
+				    			</ul>
 				    		</div>
 				    	</div>
 				    </div>
 
 				    <!-- Modal footer -->
 				    <div class="modal-footer">
+				    	<div class="upload-btn-wrapper">
+				    		<button class="btn btn-primary btn-upload">Update Avatar</button>
+				    		<input type="file" multiple="" accept='image/*' @change="changeAvatar"/>
+				    	</div>
 				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				    </div>
 				</div>
@@ -224,6 +242,8 @@
 							<div class="alert alert-danger" role="alert" v-if="usulanFailStatus">
 								Usulan Gagal Di Hapus
 							</div>
+							<a :href="linkCetakUsulan+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Usulan</a>
+							<p></p>
 					    	<table class="table table-bordered">
 					    		<tr v-for="data in dataUsulans">
 					    			<td>
@@ -390,7 +410,7 @@
 				    <!-- Modal body -->
 				    <div class="modal-body">
 				    	<div style="max-height:450px;overflow-x: auto;" class="container">
-				    		<div class="upload-btn-wrapper">
+				    		<div class="upload-btn-wrapper" style="width: 100%">
 				    			<button class="btn btn-primary btn-block btn-upload"><i class="fa fa-cloud-upload"></i> Upload Berkas</button>
 				    			<input type="file" multiple="" @change="initFile" accept='image/*'/>
 				    		</div>
@@ -398,6 +418,9 @@
 					    	<div class="row" id="lcl_elems_wrapper">
 					    		<div class="col-sm-12">
 				    				{{uploadingMessage}}
+					    		</div>
+					    		<div class="col-sm-12" v-if="!berkasUsulans.length">
+				    				<i><center>Tidak ada berkas</center></i>
 					    		</div>
 					    		<div class="col-sm-12 col-md-4" v-for="berkas in berkasUsulans">
 					    			<div class="image-float-action-button">
@@ -419,6 +442,60 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="modalDokumen">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Dokumen Kegiatan</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div style="max-height:450px;overflow-x: auto;" class="container">
+				    		<div class="row">
+				    			<div class="col-sm-12 col-md-4">
+					    			<a href="#" class="btn btn-block btn-success"><i class="fa fa-cloud-download"></i> Unduh Absensi</a>
+				    			</div>
+				    			<div class="col-sm-12 col-md-4">
+					    			<a href="#" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a>
+				    			</div>
+				    			<div class="col-sm-12 col-md-4">
+					    			<button class="btn btn-block btn-primary" @click="openFileUpload"><i class="fa fa-cloud-upload"></i> Upload Berkas</button>
+				    			</div>
+				    		</div>
+				    		<div class="upload-btn-wrapper">
+				    			<input type="file" name="file_dokumen" multiple="" @change="initFileDokumen" accept='image/*'/>
+				    		</div>
+				    		<p></p>
+					    	<table class="table table-bordered">
+					    		<tr v-if="!berkasDokumens.length">
+					    			<td><i><center>Tidak ada berkas</center></i></td>
+					    		</tr>
+					    		<tr v-for="berkas in berkasDokumens">
+					    			<td>
+					    				<a :href="mediaUrl+'/'+berkas.Nm_Media" :title="berkas.Judul_Media" :data-lcl-txt="berkas.Judul_Media" :data-lcl-author="user.username">
+							    			{{berkas.Judul_Media}}
+							    		</a>
+					    				<br>
+							    		<button class="btn btn-danger" @click="deleteMedia(berkas.Kd_Media)"><i class="fa fa-trash"></i></button>
+					    			</td>
+					    		</tr>
+					    	</table>
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
 </template>
 
@@ -429,6 +506,7 @@ export default {
 			auth:{},
 			id_usulan		:0,
 			berkasUsulans	:{},
+			berkasDokumens	:{},
 			dataUsulans		:{},
 			dataRiwayats	:{},
 			kamusUsulans	:{},
@@ -437,7 +515,17 @@ export default {
 			rpjmd 		 	:{},
 			user 			:{},
 			acara 			:{},
-			dapil 			:{},
+			dapil 			:{
+				dewan:{
+					Nm_Dewan:''
+				},
+				fraksi:{
+					Nm_Fraksi:''
+				},
+				komisi:{
+					Nm_Komisi:''
+				}
+			},
 			usulan 			:{},
 			token 			:'',
 			env 			:'',
@@ -459,29 +547,30 @@ export default {
 		this.token = window.localStorage.getItem('eplanning_pokir_token')
 		this.role_name = window.config.getRoleName()
 		this.mediaUrl = window.config.getMediaUrl()
-		this.authChecker()
+		this.linkCetakUsulan = window.config.getLinkCetakUsulanPokir()
+		await this.authChecker()
 		await this.loadAcara()
 		await this.loadBidangPembangunan()
 		await this.loadRpjmd()
 		await this.loadKamus()
 	},
 	methods: {
-		authChecker(){
-			fetch(window.config.getApiUrl()+'api/auth-checker',{
+		async authChecker(){
+			let response = await fetch(window.config.getApiUrl()+'api/auth-checker',{
 				method: 'POST',
 				body:JSON.stringify({token:this.token,level:this.role_name})
 			})
-			.then(res => res.json())
-			.then(res => {
-				if(res.status == 'error')
-					location='login.html'
-				else
-				{
-					this.user = res.data
-					this.dapil = res.dapil
-					this.loader = true
-				}
-			})
+
+			let data = await response.json()
+			if(data.status == 'error')
+				location='login.html'
+			else
+			{
+				this.user = await data.data
+				this.dapil = await data.dapil		
+				this.loader = true
+			}
+			return data
 		},
 		async mulaiReses(){
 			var vm = this
@@ -490,6 +579,9 @@ export default {
 			if(data.status == 'success')
 				vm.loadAcara()
 			return data
+		},
+		cetakUsulan(){
+			location="http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/index.php?r=api/cetak-rekapitulasi&token="+this.token
 		},
 		resetData(){
 			var vm = this
@@ -538,6 +630,9 @@ export default {
 	    	window.localStorage.removeItem('eplanning_pokir_token')
 	    	location='login.html'
 	    },
+	    openFileUpload(){
+	    	document.querySelector('input[name=file_dokumen]').click()
+	    },
 	    async sendUsulan(){
 	    	let response = await fetch(window.config.getApiUrl()+'api/simpan-usulan-reses',{
 	    		method:'POST',
@@ -585,9 +680,31 @@ export default {
 			},2500)
 	    	return data
 	    },
+	    async changeAvatar(event){
+	    	var file = event.target.files[0]
+	    	if(!file)
+	    		return
+	    	var formData = new FormData();
+	    	formData.append('imgFile',file)
+	    	let response = await fetch(window.config.getApiUrl()+'api/change-avatar&token='+this.token,{
+	    		method:'POST',
+	    		body:formData
+	    	})
+
+	    	let data = await response.json()
+	    	this.user.avatar_url = data.avatar_url
+	    	// this.uploadingMessage = "Berkas berhasil di upload"
+	    	// await this.loadBerkas(this.id_usulan)
+	    	return data
+	    },
+	    async initFileDokumen(event){
+
+	    },
 	    async initFile(event){
-	    	this.uploadingMessage = "Uploading..."
 	    	var files = event.target.files
+	    	if(!files.length)
+	    		return
+	    	this.uploadingMessage = "Uploading..."
 	    	var numOfFile = files.length
 	    	var formData = new FormData();
 	    	for(var i=0;i<numOfFile;i++)
@@ -740,15 +857,15 @@ export default {
 
 <style type="text/css">
 .upload-btn-wrapper {
-	width: 100%;
-  	position: relative;
+  	/*position: relative;*/
   	overflow: hidden;
-  	display: inline-block;
+  	height: 0px;
+  	/*display: inline-block;*/
 }
 
 .upload-btn-wrapper input[type=file] {
-  	font-size: 100px;
-  	position: absolute;
+  	/*font-size: 100px;*/
+  	/*position: absolute;*/
   	left: 0;
   	top: 0;
   	opacity: 0;
