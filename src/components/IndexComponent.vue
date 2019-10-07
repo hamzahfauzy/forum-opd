@@ -457,7 +457,7 @@
 				    	<div style="max-height:450px;overflow-x: auto;" class="container">
 				    		<div class="row">
 				    			<div class="col-sm-12 col-md-4">
-					    			<a href="#" class="btn btn-block btn-success"><i class="fa fa-cloud-download"></i> Unduh Absensi</a>
+					    			<a :href="linkCetakAbsensi+token" target="_blank" class="btn btn-block btn-success"><i class="fa fa-cloud-download"></i> Unduh Absensi</a>
 				    			</div>
 				    			<div class="col-sm-12 col-md-4">
 					    			<a href="#" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a>
@@ -477,10 +477,11 @@
 					    		<tr v-for="berkas in berkasDokumens">
 					    			<td>
 					    				<a target="_blank" :href="mediaUrl+'/'+berkas.Media.Nm_Media" :title="berkas.Media.Judul_Media" :data-lcl-txt="berkas.Media.Judul_Media" :data-lcl-author="user.username">
-							    			{{berkas.Jenis_Dokumen}}
+							    			{{berkas.Media.Judul_Media}}
 							    		</a>
-					    			</td>
-					    			<td width="20%">
+							    		<br>
+							    		<b>{{berkas.Jenis_Dokumen}}</b>
+							    		<br>
 					    				<a target="_blank" :href="mediaUrl+'/'+berkas.Media.Nm_Media" class="btn btn-success">
 					    					<i class="fa fa-download"></i> Download
 					    				</a>
@@ -551,6 +552,7 @@ export default {
 		this.role_name = window.config.getRoleName()
 		this.mediaUrl = window.config.getMediaUrl()
 		this.linkCetakUsulan = window.config.getLinkCetakUsulanPokir()
+		this.linkCetakAbsensi = window.config.getLinkCetakAbsensiPokir()
 		await this.authChecker()
 		await this.loadAcara()
 		await this.loadBidangPembangunan()

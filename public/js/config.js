@@ -11,6 +11,9 @@ var config = {
 	getLinkCetakUsulanPokir: () => {
 		return 'http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/index.php?r=api/cetak-rekapitulasi&token=';
 	},
+	getLinkCetakAbsensiPokir: () => {
+		return 'http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/index.php?r=api/pokir-absensi&token=';
+	},
 	getEnv: () => {
 		return 'simulasi'
 	}
