@@ -9,10 +9,13 @@ var config = {
 		return 'Operator_Pokir'
 	},
 	getLinkCetakUsulanPokir: () => {
-		return 'http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/index.php?r=api/cetak-rekapitulasi&token=';
+		return window.config.getApiUrl() + 'api/cetak-rekapitulasi&token=';
 	},
 	getLinkCetakAbsensiPokir: () => {
-		return 'http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/index.php?r=api/pokir-absensi&token=';
+		return window.config.getApiUrl() + 'api/pokir-absensi&token=';
+	},
+	getLinkCetakBeritaAcaraPokir: () => {
+		return window.config.getApiUrl() + 'api/berita-acara&token=';
 	},
 	getEnv: () => {
 		return 'simulasi'

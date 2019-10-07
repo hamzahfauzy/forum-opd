@@ -85,7 +85,7 @@
 
 				    <!-- Modal footer -->
 				    <div class="modal-footer">
-				    	<div class="upload-btn-wrapper">
+				    	<div class="upload-btn-wrapper" style="height: 38px;">
 				    		<button class="btn btn-primary btn-upload">Update Avatar</button>
 				    		<input type="file" multiple="" accept='image/*' @change="changeAvatar"/>
 				    	</div>
@@ -242,8 +242,11 @@
 							<div class="alert alert-danger" role="alert" v-if="usulanFailStatus">
 								Usulan Gagal Di Hapus
 							</div>
-							<a :href="linkCetakUsulan+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Usulan</a>
+							<a v-if="dataUsulans.length" :href="linkCetakUsulan+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Usulan</a>
 							<p></p>
+							<center>
+								<i v-if="!dataUsulans.length">Tidak ada Data!</i>
+							</center>
 					    	<table class="table table-bordered">
 					    		<tr v-for="data in dataUsulans">
 					    			<td>
@@ -460,7 +463,7 @@
 					    			<a :href="linkCetakAbsensi+token" target="_blank" class="btn btn-block btn-success"><i class="fa fa-cloud-download"></i> Unduh Absensi</a>
 				    			</div>
 				    			<div class="col-sm-12 col-md-4">
-					    			<a href="#" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a>
+					    			<a :href="linkBeritaAcara+token" target="_blank" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a>
 				    			</div>
 				    			<div class="col-sm-12 col-md-4">
 					    			<button class="btn btn-block btn-primary" @click="openFileUpload"><i class="fa fa-cloud-upload"></i> Upload Berkas</button>
@@ -553,6 +556,7 @@ export default {
 		this.mediaUrl = window.config.getMediaUrl()
 		this.linkCetakUsulan = window.config.getLinkCetakUsulanPokir()
 		this.linkCetakAbsensi = window.config.getLinkCetakAbsensiPokir()
+		this.linkBeritaAcara = window.config.getLinkCetakBeritaAcaraPokir()
 		await this.authChecker()
 		await this.loadAcara()
 		await this.loadBidangPembangunan()
@@ -715,8 +719,8 @@ export default {
 			    'Absensi': 'Absensi',
 			    'Berita Acara': 'Berita Acara',
 			    'Foto': 'Foto',
-			    'Video': 'Video',
-			    'Pakta Integritas': 'Pakta Integritas',
+			    'Video': 'Video'
+			    // 'Pakta Integritas': 'Pakta Integritas',
 			},
 			inputPlaceholder: '- Pilih -',
 			showCancelButton: true,
