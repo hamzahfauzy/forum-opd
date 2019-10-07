@@ -86,8 +86,8 @@
 				    <!-- Modal footer -->
 				    <div class="modal-footer">
 				    	<div class="upload-btn-wrapper" style="height: 38px;position: relative;display: inline-block;">
-				    		<button class="btn btn-primary btn-upload">Update Avatar</button>
-				    		<input type="file" multiple="" accept='image/*' @change="changeAvatar" style="position: absolute;cursor: pointer;">
+				    		<button class="btn btn-primary btn-upload" onclick="$('.fileAvatar').click()">Update Avatar</button>
+				    		<input type="file" multiple="" accept='image/*' class="fileAvatar" @change="changeAvatar" style="position: absolute;cursor: pointer;height: 38px;z-index: -1;">
 				    	</div>
 				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				    </div>
