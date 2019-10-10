@@ -44,6 +44,7 @@ html, body {
     background-position: center;
     position: relative;
     z-index: 1;
+    transition: background-image 1s linear 0.5s;
 }
 
 .bg::before {

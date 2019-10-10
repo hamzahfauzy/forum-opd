@@ -23,6 +23,26 @@
 <script type='text/javascript'>
 $(document).ready(function() {
     var $obj = lc_lightbox('#lcl_elems_wrapper a');
+
+
+	var imgIndex = 0
+	var slideElem = document.querySelector('.bg')
+	var slideShowImage = [
+			"asahan.jpg",
+			"asahan1.jpg",
+			"asahan2.jpg",
+			"asahan3.jpg"
+		]
+
+	setInterval(() => {
+		console.log(imgIndex)
+		slideElem.style.backgroundImage = "url(assets/"+slideShowImage[imgIndex]+")"
+		if(imgIndex < 3)
+			imgIndex++
+		else
+			imgIndex = 0
+	},5000)
+
 });
 </script>
 </body>
