@@ -11,7 +11,8 @@
 				<h4>Selamat Datang di E-Pokir Kabupaten Asahan</h4>
 				<div class="z-desktop">
 					<a href="#" class="btn me-btn" v-if="acara.status == 0" @click="mulaiReses()">Mulai Reses</a>
-					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
+					<a href="#" class="btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
+					<a href="#" class="btn me-btn" v-if="acara.status == 1" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Input Usulan</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
 					<a href="#" class="btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Reses</a>
@@ -21,7 +22,8 @@
 				<div class="container z-mobile">
 					<div class="row">
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" @click="mulaiReses()">Mulai Reses</a>
-						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
+						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
+						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 1" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Input Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Reses</a>
@@ -201,7 +203,7 @@
 
 					    	<div class="form-group">
 					    		<label>Bidang Pembangunan</label>
-					    		<select class="form-control" v-model="usulan.kd_pem">
+					    		<select class="form-control" v-model="usulan.kd_pem" @change="loadRpjmd()">
 					    			<option v-for="bidang_pembangunan in bidPembangunan" :value="bidang_pembangunan.Kd_Pem">{{bidang_pembangunan.Bidang_Pembangunan}}</option>
 					    		</select>
 					    	</div>
@@ -560,7 +562,7 @@ export default {
 		await this.authChecker()
 		await this.loadAcara()
 		await this.loadBidangPembangunan()
-		await this.loadRpjmd()
+		// await this.loadRpjmd()
 		await this.loadKamus()
 		await this.loadBerkasKegiatan()
 		this.loader = true
@@ -894,6 +896,14 @@ export default {
 			});
 		},
 		async loadRpjmd()
+		{
+			await fetch(window.config.getApiUrl()+'api/rpjmd-by-pembangunan&id='+this.usulan.kd_pem)
+			.then(res=>res.json())
+			.then(res => {
+				this.rpjmd = res
+			});
+		},
+		async loadRpjmdOld()
 		{
 			await fetch(window.config.getApiUrl()+'api/rpjmd')
 			.then(res=>res.json())
