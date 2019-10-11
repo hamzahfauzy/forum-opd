@@ -4,6 +4,21 @@
 			<div class="loader"></div>
 		</div>
 		<div class="bg">
+			<div class="slideshow">
+				<div class="slider" data-bg="assets/asahan.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan.jpg');"></div>
+				</div>
+				<div class="slider" data-bg="assets/asahan1.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan1.jpg');"></div>
+				</div>
+				<div class="slider" data-bg="assets/asahan2.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan2.jpg');"></div>
+				</div>
+				<div class="slider" data-bg="assets/asahan3.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan3.jpg');"></div>
+				</div>
+			</div>
+			<div class="dark-overlay"></div>
 			<div class="logo">
 				<img :src="user.avatar_url ? mediaUrl+'/'+user.avatar_url : 'assets/face1.jpg'" class="profile-picture" width="100px" height="100px" data-toggle="modal" data-target="#modalProfile">
 				<p></p>

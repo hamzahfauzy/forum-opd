@@ -4,8 +4,23 @@
 			<div class="loader"></div>
 		</div>
 		<div class="bg">
+			<div class="slideshow">
+				<div class="slider" data-bg="assets/asahan.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan.jpg');"></div>
+				</div>
+				<div class="slider" data-bg="assets/asahan1.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan1.jpg');"></div>
+				</div>
+				<div class="slider" data-bg="assets/asahan2.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan2.jpg');"></div>
+				</div>
+				<div class="slider" data-bg="assets/asahan3.jpg">
+					<div class="slideshow-img" style="background-image: url('assets/asahan3.jpg');"></div>
+				</div>
+			</div>
+			<div class="dark-overlay"></div>
 			<div class="logo">
-				<img src="assets/logo.png">
+				<img src="assets/logo.png" style="z-index: 2;position: relative;">
 				<h3>E-Pokir Kabupaten Asahan</h3>
 				<!-- <h4>Login Form</h4> -->
 				<div class="container z-container">

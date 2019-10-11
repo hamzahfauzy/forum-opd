@@ -18,24 +18,24 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	var imgIndex = 0
-	var slideElem = document.querySelector('.bg')
-	var slideShowImage = [
-			"asahan.jpg",
-			"asahan1.jpg",
-			"asahan2.jpg",
-			"asahan3.jpg"
-		]
+	var imgIndex = 1
+	var slideElements = document.querySelectorAll('.slider')
+	
+	setInterval(doSlide,10000)
 
-	setInterval(() => {
-		console.log(imgIndex)
-		slideElem.style.backgroundImage = "url(assets/"+slideShowImage[imgIndex]+")"
-		if(imgIndex < 3)
-			imgIndex++
-		else
-			imgIndex = 0
-	},5000)
+	function doSlide(){
+		if (imgIndex > slideElements.length) {imgIndex = 1}
+  		if (imgIndex < 1) {imgIndex = slideElements.length}
+		for (i = 0; i < slideElements.length; i++) {
+		    slideElements[i].querySelector('.slideshow-img').style.opacity = "0";
+		    slideElements[i].style.height = "0px";
+		}
+		slideElements[imgIndex-1].querySelector('.slideshow-img').style.opacity = "1";
+		slideElements[imgIndex-1].style.height = "100%";
+		imgIndex++
+	}
 
+	doSlide();
 });
 </script>
 </body>
