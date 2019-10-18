@@ -6,18 +6,21 @@ var config = {
 		return 'http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/uploads';
 	},
 	getRoleName: () => {
-		return 'Operator_Pokir'
+		return 'Operator_Kelurahan'
 	},
 	getLinkCetakUsulanPokir: () => {
 		return window.config.getApiUrl() + 'api/cetak-rekapitulasi&token=';
 	},
 	getLinkCetakAbsensiPokir: () => {
-		return window.config.getApiUrl() + 'api/pokir-absensi&token=';
+		return window.config.getApiUrl() + 'api/musrenbang-absensi&token=';
 	},
 	getLinkCetakBeritaAcaraPokir: () => {
 		return window.config.getApiUrl() + 'api/berita-acara&token=';
 	},
 	getEnv: () => {
 		return 'simulasi'
+	},
+	getAppName: () => {
+		return 'E-Musrenbang Desa'
 	}
 }

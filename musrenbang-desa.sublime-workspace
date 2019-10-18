@@ -1,0 +1,1079 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"usul",
+				"id_usulan"
+			],
+			[
+				"stat",
+				"status"
+			],
+			[
+				"load",
+				"loadRpjmd"
+			],
+			[
+				"Mode",
+				"model"
+			],
+			[
+				"num",
+				"num_of_kegiatan"
+			],
+			[
+				"pere",
+				"persen_realisasi_total"
+			],
+			[
+				"uang",
+				"uang_total"
+			],
+			[
+				"rea",
+				"realisasi_total"
+			],
+			[
+				"real",
+				"realisasi_total"
+			],
+			[
+				"tr",
+				"triwulan"
+			],
+			[
+				"err",
+				"errors"
+			],
+			[
+				"Uang",
+				"Uang_Kinerja_1"
+			],
+			[
+				"param",
+				"paramView"
+			],
+			[
+				"U",
+				"UsulanMedia"
+			],
+			[
+				"TaMusre",
+				"TaMusrenbangKelurahanAcara"
+			],
+			[
+				"wak",
+				"waktu"
+			],
+			[
+				"wa",
+				"waktu"
+			],
+			[
+				"modalMu",
+				"modalMulaiMusrenbang"
+			],
+			[
+				"Nama",
+				"Nama_Pejabat"
+			],
+			[
+				"kel",
+				"kelompok"
+			],
+			[
+				"me",
+				"method"
+			],
+			[
+				"form",
+				"form-control"
+			],
+			[
+				"Kd",
+				"Kd_Fraksi"
+			],
+			[
+				"tra",
+				"transition\tproperty"
+			],
+			[
+				"bac",
+				"background-repeat\tproperty"
+			],
+			[
+				"sli",
+				"slideElem"
+			],
+			[
+				"ani",
+				"animation-duration\tproperty"
+			],
+			[
+				"an",
+				"animation-name\tproperty"
+			],
+			[
+				"slid",
+				"slideShowImage"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"nama",
+				"nama_dewan"
+			],
+			[
+				"nam",
+				"nama_dewan"
+			],
+			[
+				"naa",
+				"nama_dewan"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"pas",
+				"password"
+			],
+			[
+				"rand",
+				"rand_user"
+			],
+			[
+				"Ref",
+				"RefDewan"
+			],
+			[
+				"loadBer",
+				"loadBerkasKegiatan"
+			],
+			[
+				"jenis",
+				"Jenis_Dokumen"
+			],
+			[
+				"file",
+				"file_dokumen"
+			],
+			[
+				"Upl",
+				"UploadModel"
+			],
+			[
+				"usu",
+				"usulan"
+			],
+			[
+				"kam",
+				"kamusUsulan"
+			],
+			[
+				"kamus",
+				"kamusUsulans"
+			],
+			[
+				"loca",
+				"location"
+			],
+			[
+				"ref",
+				"refSubUnit"
+			],
+			[
+				"usulan",
+				"usulanFailStatus"
+			],
+			[
+				"Har",
+				"Harga_Satuan"
+			],
+			[
+				"pad",
+				"padding\tproperty"
+			],
+			[
+				"r",
+				"rpjmd"
+			],
+			[
+				"to",
+				"toLocaleString"
+			],
+			[
+				"harga",
+				"harga_kamus"
+			],
+			[
+				"kamu",
+				"kamusUsulan"
+			],
+			[
+				"Ke",
+				"Kec"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"Use",
+				"user"
+			],
+			[
+				"Ta",
+				"TaPokirReses"
+			],
+			[
+				"a",
+				"auto\toverflow"
+			],
+			[
+				"over",
+				"overflow\tproperty"
+			],
+			[
+				"margn",
+				"margin-bottom\tproperty"
+			],
+			[
+				"aut",
+				"authChecker"
+			],
+			[
+				"role",
+				"role_name"
+			],
+			[
+				"lo",
+				"loginSuccessStatus"
+			],
+			[
+				"login",
+				"loginFailStatus"
+			],
+			[
+				"loign",
+				"loginSuccessStatus"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"padd",
+				"padding-right\tproperty"
+			],
+			[
+				"auth",
+				"authChecker"
+			],
+			[
+				"mar",
+				"margin\tproperty"
+			],
+			[
+				"wd",
+				"width\tproperty"
+			],
+			[
+				"di",
+				"display\tproperty"
+			],
+			[
+				"tex",
+				"text-decoration-line\tproperty"
+			],
+			[
+				"d",
+				"display\tproperty"
+			],
+			[
+				"text-de",
+				"text-decoration\tproperty"
+			],
+			[
+				"stu",
+				"student"
+			],
+			[
+				"stud",
+				"student"
+			],
+			[
+				"tot",
+				"total_scores"
+			],
+			[
+				"st",
+				"student_id"
+			],
+			[
+				"total",
+				"total_scores"
+			],
+			[
+				"exa",
+				"exam_id"
+			],
+			[
+				"tota",
+				"totalScore"
+			],
+			[
+				"ans",
+				"answer"
+			],
+			[
+				"exam",
+				"examItems"
+			],
+			[
+				"item",
+				"item_id"
+			],
+			[
+				"ite",
+				"item_id"
+			],
+			[
+				"student",
+				"student_id"
+			],
+			[
+				"bad",
+				"badge-success"
+			],
+			[
+				"c",
+				"current"
+			],
+			[
+				"ass",
+				"assignment_answers"
+			],
+			[
+				"stude",
+				"student"
+			],
+			[
+				"as",
+				"assignment_answers"
+			],
+			[
+				"assi",
+				"assignment"
+			],
+			[
+				"no",
+				"no-border-radius"
+			],
+			[
+				"marg",
+				"margin-top\tproperty"
+			],
+			[
+				"wid",
+				"width\tproperty"
+			],
+			[
+				"col",
+				"color\tproperty"
+			],
+			[
+				"quest",
+				"question"
+			],
+			[
+				"loadA",
+				"loadAnswers"
+			],
+			[
+				"Exa",
+				"ExamAnswer"
+			],
+			[
+				"qu",
+				"question_type"
+			],
+			[
+				"question",
+				"question_type"
+			],
+			[
+				"qe",
+				"question"
+			],
+			[
+				"que",
+				"question"
+			],
+			[
+				"q",
+				"question"
+			],
+			[
+				"file_",
+				"file_url"
+			],
+			[
+				"set",
+				"setAssignmentId"
+			],
+			[
+				"Cata",
+				"CatatanEvaluasiModel"
+			],
+			[
+				"Catat",
+				"CatatanEvaluasi"
+			],
+			[
+				"Catatan",
+				"Catatan_1"
+			],
+			[
+				"empl",
+				"employees"
+			],
+			[
+				"ann",
+				"announcement"
+			],
+			[
+				"clas",
+				"classroom"
+			],
+			[
+				"class",
+				"class_room"
+			],
+			[
+				"rol",
+				"roles"
+			],
+			[
+				"vir",
+				"virtualClassroom-"
+			],
+			[
+				"f",
+				"frameborder\tAttr"
+			],
+			[
+				"font",
+				"font-size\tproperty"
+			],
+			[
+				"margin",
+				"margin-bottom\tproperty"
+			],
+			[
+				"max",
+				"max-height\tproperty"
+			],
+			[
+				"inlin",
+				"inline-block\tdisplay"
+			],
+			[
+				"virt",
+				"virtualClassroom"
+			],
+			[
+				"virtual",
+				"virtualClassroom"
+			],
+			[
+				"queti",
+				"question"
+			],
+			[
+				"ex",
+				"exam"
+			],
+			[
+				"exam_",
+				"exam_item"
+			],
+			[
+				"quet",
+				"questions"
+			],
+			[
+				"cla",
+				"classroom"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "public/index.html",
+			"settings":
+			{
+				"buffer_size": 1697,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/components/IndexComponent.vue",
+			"settings":
+			{
+				"buffer_size": 37463,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/js/config.js",
+			"settings":
+			{
+				"buffer_size": 708,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Pca",
+				"Package Control: Install Package"
+			],
+			[
+				"packac",
+				"Package Control: Install Local Dependency"
+			],
+			[
+				"packa",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 198.0,
+		"history":
+		[
+			"php artisan serve"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/fauzy/Desktop/e-musrenbang-desa",
+		"/home/fauzy/Desktop/e-musrenbang-desa/public",
+		"/home/fauzy/Desktop/e-musrenbang-desa/public/js",
+		"/home/fauzy/Desktop/e-musrenbang-desa/src",
+		"/home/fauzy/Desktop/e-musrenbang-desa/src/components"
+	],
+	"file_history":
+	[
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/api/cetak-rekapitulasi-musrenbang.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaUsulanKelurahanMedia.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/controllers/ApiController.php",
+		"/home/fauzy/Desktop/e-musrenbang-desa/public/login.html",
+		"/home/fauzy/Desktop/e-musrenbang-desa/public/index.html",
+		"/home/fauzy/Desktop/e-musrenbang-desa/public/css/style.css",
+		"/home/fauzy/Desktop/e-musrenbang-desa/public/js/config.js",
+		"/home/fauzy/Desktop/e-musrenbang-desa/src/components/IndexComponent.vue",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/userlevel/models/TaUserKelompok.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/common/components/LevelComponent.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaMusrenbangKelurahanAcara.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaMusrenbangKelurahanMedia.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/api/cetak-rekapitulasi.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/api/musrenbang-absensi.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaMusrenbang.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-program-kegiatan/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/models/TaMonev.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-kegiatan/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/controllers/MKegiatanController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/site/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/controllers/MProgramKegiatanController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/models/TaBelanja.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaMusrenbangKelurahan.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaMusrenbangKelurahanRiwayat.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-monitoring/form.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-monitoring/laporan-tahunan.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-monitoring/laporan.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/index.html",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/controllers/SiteController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/controllers/MMonitoringController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-program-kegiatan/form.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-monitoring/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/api/bap.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/api/bap-musrenbang.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/controllers/TaMusrenbangKelurahanAcaraController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/common/models/RefSubUnit.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/controllers/CatatanEvaluasiController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/controllers/MProgramController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/api/lampiran_ii.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/ta-musrenbang-kelurahan-acara/bap.php",
+		"/home/fauzy/Desktop/e-musrenbang-desa/src/components/LoginComponent.vue",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/2019/emonev/views/m-kegiatan/form.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/common/config/main.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/common/config/bootstrap.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/common/config/main-local.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/common/models/User.php",
+		"/home/fauzy/Desktop/e-pokir/public/index.html",
+		"/home/fauzy/Desktop/Test/orm-test.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/controllers/DashboardController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/dashboard/usulan-pokir.php",
+		"/home/fauzy/Desktop/e-pokir/public/login.html",
+		"/home/fauzy/Desktop/e-pokir/src/components/LoginComponent.vue",
+		"/home/fauzy/Desktop/e-pokir/src/components/IndexComponent.vue",
+		"/home/fauzy/Desktop/e-pokir/public/css/style.css",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/userlevel/views/tambah-user/generate-pokir.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/RefDewan.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/userlevel/models/SignupForm.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/userlevel/controllers/TambahUserController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/pokir/cetak-rekapitulasi.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/userlevel/views/tambah-user/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/controllers/PokirController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/referensi/controllers/RefDewanController.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/referensi/views/ref-dewan/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/referensi/views/ref-dewan/_columns.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/referensi/views/ref-fraksi-dprd/_form.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/referensi/views/ref-fraksi-dprd/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/referensi/views/ref-fraksi-dprd/_columns.php",
+		"/home/fauzy/Desktop/e-pokir/public/js/config.js",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/pokir/dokumen.php",
+		"/media/fauzy/DATA/Project/Z-Techno/z-techno hotspot tool/test.html",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaPokirMedia.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/z-framework/config/Routes.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/API/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/common/components/Configs.php",
+		"/home/fauzy/Desktop/e-pokir/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/test.php",
+		"/media/fauzy/DATA/Project/OSS/eVoice/resources/assets/js/app.js",
+		"/media/fauzy/DATA/Project/OSS/eVoice/webpack.mix.js",
+		"/media/fauzy/DATA/Project/OSS/eVoice/resources/assets/components/FormDetails.vue",
+		"/media/fauzy/DATA/Project/OSS/eVoice/resources/assets/components/FormNumber.vue",
+		"/home/fauzy/Desktop/e-pokir/.gitignore",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaDapil.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/TaMusrenbangRiwayat.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/pokir/_form.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/pokir/dashboard.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/views/pokir/rekapitulasi.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/emusrenbang/controllers/MenupokirController.php",
+		"/home/fauzy/Desktop/e-pokir/webpack.mix.js",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/emusrenbang/views/menupokir/index.php",
+		"/run/user/1000/gvfs/sftp:host=103.15.242.82,user=root/var/www/html/simulasiv2/eperencanaan/models/KamusUsulan.php",
+		"/tmp/fz3temp-2/ApiController.php",
+		"/home/fauzy/Desktop/e-pokir/app.js",
+		"/tmp/fz3temp-2/SiteController.php",
+		"/tmp/fz3temp-2/dashboard.php",
+		"/tmp/fz3temp-2/PokirController.php",
+		"/tmp/fz3temp-2/DashboardController.php",
+		"/tmp/fz3temp-2/create.php",
+		"/tmp/fz3temp-2/_form.php",
+		"/tmp/fz3temp-2/index.php",
+		"/tmp/fz3temp-2/LevelComponent.php",
+		"/home/fauzy/Desktop/e-pokir/public/login.php",
+		"/tmp/fz3temp-2/User.php",
+		"/tmp/fz3temp-2/LoginForm.php",
+		"/var/www/e-school/login/resources/views/admin.blade.php",
+		"/home/fauzy/Desktop/eplanning-landing-page/index.html",
+		"/var/www/e-school/login/public/css/app.css",
+		"/var/www/e-school/login/resources/js/components/AdminComponent.vue",
+		"/home/fauzy/Desktop/e-pokir/index.html",
+		"/home/fauzy/Desktop/e-pokir/js/components/IndexComponent.vue",
+		"/home/fauzy/Desktop/e-pokir/package.json",
+		"/var/www/e-school/e-learning/package.json",
+		"/home/fauzy/Desktop/e-pokir/src/index.js",
+		"/home/fauzy/Desktop/e-pokir/js/app.js",
+		"/var/www/e-school/e-learning/public/css/style.css",
+		"/var/www/e-school/e-learning/resources/views/teacher/virtual-classroom.blade.php",
+		"/var/www/e-school/login/resources/views/dashboard.blade.php",
+		"/var/www/e-school/login/resources/js/components/UserComponent.vue",
+		"/var/www/e-school/cloud/resources/js/components/ShareComponent.vue",
+		"/var/www/e-school/cloud/resources/js/components/IndexComponent.vue",
+		"/var/www/e-school/cloud/resources/js/components/FileComponent.vue",
+		"/var/www/e-school/e-learning/public/js/config.js.example",
+		"/var/www/e-school/e-learning/.gitignore",
+		"/var/www/e-school/cloud/.gitignore",
+		"/var/www/e-school/cloud/public/js/config.js.example",
+		"/var/www/e-school/information-system/public/js/config.js.example",
+		"/var/www/e-school/information-system/.gitignore",
+		"/var/www/e-school/information-system/.env",
+		"/var/www/e-school/information-system/resources/js/components/ClassRoomComponent.vue"
+	],
+	"find":
+	{
+		"height": 42.0
+	},
+	"find_in_files":
+	{
+		"height": 295.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"deleteMedia",
+			"openFileUpload",
+			"loadRpjmd",
+			"editUsulan",
+			"modalEditUsulan",
+			"editUsulan",
+			"modalEditUsulan",
+			"editUsulan",
+			"Satuan",
+			"Kd_Prog",
+			"id",
+			"EditUsulan",
+			"editUsulan",
+			"Ket_Program",
+			"<td>A</td>\n                        <td>B</td>",
+			"Bidang",
+			"dataRiwayats",
+			"tampilRiwayat",
+			"Bidang",
+			"B",
+			"Bidang",
+			"Asal_Usulan",
+			"Bidang",
+			"setUsulan",
+			"actionBeri",
+			"loadBerkasKegiatan",
+			"$user",
+			"'Kd_Asal_Usulan'",
+			"actionGet",
+			"actionGetUsulan",
+			"EditUsulan",
+			"editUsulan",
+			"actionGetUsu",
+			"Tahun",
+			".length",
+			"secs",
+			"loadAcara",
+			"5",
+			"data-toggle=\"modal\" data-target=\"#modalMulaiMusrenbang\"",
+			" == ''",
+			"$request->",
+			"errors.",
+			"errors.Nama_Tempat",
+			"red;\" ",
+			"Nama_Tempat",
+			" == 1",
+			"Kd_user",
+			"Prov",
+			" Reses",
+			"Pokir:",
+			"Pokir",
+			" fade",
+			"slideIndex",
+			"slides",
+			" fade",
+			"-img",
+			"actionCetakRekapi",
+			"Lihat Kamus Usulan",
+			"['user']",
+			"RefDewanDprd",
+			"Dprd",
+			"Dapil",
+			"http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/index.php?r=",
+			"model",
+			"$user",
+			"user",
+			"loadBerkasKegiatan",
+			"initFileDokumen",
+			"openFileUpload",
+			"$this->Kd_User()",
+			"common\\models\\User",
+			"btn ",
+			"$headers = Yii::$app->request->headers;\n        $token = explode(' ',$headers['authorization']);\n        $token = $token[1];",
+			"btn ",
+			"btn",
+			"this",
+			"Controller",
+			"Money",
+			"money",
+			"Money",
+			"v-if=\"acara.status == 1\"",
+			"TaFLA",
+			"data",
+			"@click=\"loadKamus()\"",
+			"data.",
+			"satuan",
+			"$this->Kd_User()",
+			"this->Kd_User()])",
+			"this->Kd_User()",
+			"usulan.",
+			"usulan",
+			"model",
+			"ZULaftersimpan",
+			"bidang_pembangunan",
+			"{kamus.",
+			"kamus.",
+			"kamus",
+			"user->",
+			"actionIn",
+			"actionMul",
+			">Mulai",
+			"'production'",
+			">Mulai",
+			"actionInde",
+			"use eperencanaan\\models\\TaMusrenbang;",
+			"config.API_URL",
+			"config.role_name",
+			"config.API_URL",
+			"getRoleName()",
+			">Lihat Kamus",
+			"kamususulan",
+			"col-sm-12 col-md-4 ",
+			"btn",
+			"actionMulai",
+			"username",
+			"actionLogin",
+			"<label",
+			"control",
+			"col-md-4",
+			"3",
+			"process.env",
+			"=",
+			"es_env",
+			"process.env",
+			"=",
+			"process.env",
+			"=",
+			"button"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "public/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1697,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/components/IndexComponent.vue",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 37463,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14234,
+								14234
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Vue Syntax Highlight/Vue Component.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 1039.0,
+						"translation.y": 6257.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/js/config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 708,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								382,
+								382
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 1.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 101.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "musrenbang-desa.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"eKantorNew/resources/vews/special-role",
+				"eKantorNew/resources/views/special-role/surat-keluar/edit.blade.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 257.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}

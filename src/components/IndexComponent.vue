@@ -22,26 +22,27 @@
 			<div class="logo">
 				<img :src="user.avatar_url ? mediaUrl+'/'+user.avatar_url : 'assets/face1.jpg'" class="profile-picture" width="100px" height="100px" data-toggle="modal" data-target="#modalProfile">
 				<p></p>
-				<h2 class="username-label">{{dapil.dewan.Nm_Dewan}}</h2>
-				<h4>Selamat Datang di E-Pokir Kabupaten Asahan</h4>
+				<h2 class="username-label">{{kelompok.kelurahan.Nm_Kel}} - {{kelompok.kecamatan.Nm_Kec}}</h2>
+				<h4>Selamat Datang di E-Musrenbang Desa Kabupaten Asahan</h4>
+				<h4 v-if="acara.status == 1">{{musrenbangTimer}}</h4>
 				<div class="z-desktop">
-					<a href="#" class="btn me-btn" v-if="acara.status == 0" @click="mulaiReses()">Mulai Reses</a>
+					<a href="#" class="btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalMulaiMusrenbang" @click="showModalMulai()">Mulai Musrenbang</a>
 					<a href="#" class="btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
 					<a href="#" class="btn me-btn" v-if="acara.status == 1" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Input Usulan</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
-					<a href="#" class="btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Reses</a>
+					<a href="#" class="btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Musrenbang</a>
 					<a href="#" class="btn me-btn" v-if="env != 'production' && acara.status == 2" @click="resetData()">Reset</a>
 					<a href="#" class="btn me-btn" @click="doLogout()">Log Out</a>
 				</div>
 				<div class="container z-mobile">
 					<div class="row">
-						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" @click="mulaiReses()">Mulai Reses</a>
+						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalMulaiMusrenbang" @click="showModalMulai()">Mulai Musrenbang</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 1" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Input Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
-						<a href="#" class="col-sm-12 col-md-4 btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Reses</a>
+						<a href="#" class="col-sm-12 col-md-4 btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Musrenbang</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="env != 'production' && acara.status == 2" @click="resetData()">Reset</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" @click="doLogout()">Log Out</a>
 					</div>
@@ -68,34 +69,16 @@
 				    			<center>
 				    			<img :src="user.avatar_url ? mediaUrl+'/'+user.avatar_url : 'assets/face1.jpg'" class="profile-picture" width="100px" height="100px">
 				    			<p></p>
-				    			<h5 class="username-label">{{dapil.dewan.Nm_Dewan}}</h5>
+				    			<h5 class="username-label">{{user.username}}</h5>
 				    			</center>
 				    		</div>
 				    		<div class="col-sm-12 col-md-6">
-				    			<h5>Asal Dapil</h5>
-				    			<span>{{dapil.name}}</span>
+				    			<h5>Desa/Kelurahan</h5>
+				    			<span>{{kelompok.kelurahan.Nm_Kel}}</span>
 				    			<br><br>
 
-				    			<h5>Mewakili Kecamatan</h5>
-				    			<ul>
-				    				<li v-for="kecamatan in dapil.kecamatan">
-				    					{{kecamatan.Nm_Kec}}
-				    				</li>
-				    			</ul>
-
-				    			<h5>Fraksi</h5>
-				    			<ul>
-				    				<li>
-				    					{{dapil.fraksi.Nm_Fraksi}}
-				    				</li>
-				    			</ul>
-
-				    			<h5>Komisi</h5>
-				    			<ul>
-				    				<li>
-				    					{{dapil.komisi.Nm_Komisi}}
-				    				</li>
-				    			</ul>
+				    			<h5>Kecamatan</h5>
+				    			<span>{{kelompok.kecamatan.Nm_Kec}}</span>
 				    		</div>
 				    	</div>
 				    </div>
@@ -106,6 +89,46 @@
 				    		<button class="btn btn-primary btn-upload" onclick="$('.fileAvatar').click()">Update Avatar</button>
 				    		<input type="file" multiple="" accept='image/*' class="fileAvatar" @change="changeAvatar" style="position: absolute;cursor: pointer;height: 38px;z-index: -1;">
 				    	</div>
+				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalMulaiMusrenbang">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Mulai Musrenbang</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div class="alert alert-success" role="alert" v-if="mulaiStatus">
+							Musrenbang Berhasil dimulai!
+						</div>
+				    	<div class="form-group">
+				    		<label>Nama Tempat</label>
+			    			<input type="text" class="form-control" v-model="infoMusrenbang.Nama_Tempat" :disabled="acara.status > 0">
+			    			<span style="color:red;" :class="{'d-none':!errors.Nama_Tempat}">Nama Tempat tidak boleh kosong!</span>
+			    		</div>
+			    		<div class="form-group">
+			    			<label>Alamat</label>
+				   			<textarea class="form-control" v-model="infoMusrenbang.Alamat" :disabled="acara.status > 0"></textarea>
+				   			<span style="color:red;" :class="{'d-none':!errors.Alamat}">Alamat tidak boleh kosong!</span>
+				   		</div>
+				   		<div class="form-group">
+				   			<label>Nama Kepala Desa/Lurah</label>
+				    		<input type="text" class="form-control" v-model="infoMusrenbang.Nama_Pejabat" :disabled="acara.status > 0">
+				    		<span style="color:red;" :class="{'d-none':!errors.Nama_Pejabat}">Nama Kepala Desa/Lurah tidak boleh kosong!</span>
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-primary" @click="mulaiMusrenbang()">Mulai</button>
 				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				    </div>
 				</div>
@@ -191,6 +214,7 @@
 					    	<div class="alert alert-success" role="alert" v-if="usulanSuccessStatus">
 								Usulan Berhasil Disimpan
 							</div>
+
 							<div class="alert alert-danger" role="alert" v-if="usulanFailStatus">
 								Usulan Gagal Disimpan
 							</div>
@@ -200,9 +224,9 @@
 					    	</div>
 
 					    	<div class="form-group">
-					    		<label>Kecamatan</label>
-					    		<select class="form-control" v-model="usulan.kecamatan">
-					    			<option v-for="kecamatan in dapil.kecamatan" :value="kecamatan.Kd_Kec">{{kecamatan.Nm_Kec}}</option>
+					    		<label>Dusun/Lingkungan</label>
+					    		<select class="form-control" v-model="usulan.kd_lingkungan" @change="loadRpjmd()">
+					    			<option v-for="lingkungan in ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']" :value="lingkungan">Dusun/Lingkungan {{lingkungan}}</option>
 					    		</select>
 					    	</div>
 
@@ -267,6 +291,8 @@
 					    	<table class="table table-bordered">
 					    		<tr v-for="data in dataUsulans">
 					    			<td>
+					    				<span class="badge badge-warning" v-if="data.usulan.Status_Pembahasan == 0">Usulan Pembahasan Desa</span>
+					    				<span class="badge badge-success" v-if="data.usulan.Status_Pembahasan == 1">Usulan Pembahasan Kecamatan</span><br>
 					    				{{data.usulan.Jenis_Usulan}}
 					    				<br>
 					    				<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
@@ -277,10 +303,11 @@
 					    				<b>{{data.refSubUnit.Nm_Sub_Unit}}</b>
 					    				<br>
 					    				<center>
-						    				<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
-						    				<button class="btn btn-sm btn-primary" v-if="acara.status == 1" data-toggle="modal" data-target="#modalEditUsulan" @click="editUsulan(data.usulan.id)"><i class="fa fa-pencil"></i> Edit</button>
-						    				<button class="btn btn-sm btn-danger" v-if="acara.status == 1" @click="deleteUsulan(data.usulan.id)"><i class="fa fa-trash"></i> Hapus</button>
-						    				<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
+						    				<button class="btn btn-sm btn-secondary" v-if="acara.status == 1 && data.usulan.Status_Pembahasan == 0" @click="kirimUsulan(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-arrow-right"></i> Teruskan Usulan</button>
+						    				<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-history"></i> Riwayat</button>
+						    				<button class="btn btn-sm btn-primary" v-if="acara.status == 1" data-toggle="modal" data-target="#modalEditUsulan" @click="editUsulan(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-pencil"></i> Edit</button>
+						    				<button class="btn btn-sm btn-danger" v-if="acara.status == 1" @click="deleteUsulan(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-trash"></i> Hapus</button>
+						    				<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-file"></i> Berkas</button>
 					    				</center>
 					    			</td>
 					    		</tr>
@@ -338,9 +365,9 @@
 					    	</div>
 
 					    	<div class="form-group">
-					    		<label>Kecamatan</label>
-					    		<select class="form-control" v-model="usulan.Kd_Kec">
-					    			<option v-for="kecamatan in dapil.kecamatan" :value="kecamatan.Kd_Kec">{{kecamatan.Nm_Kec}}</option>
+					    		<label>Dusun/Lingkungan</label>
+					    		<select class="form-control" v-model="usulan.Kd_Lingkungan" @change="loadRpjmd()">
+					    			<option v-for="lingkungan in ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']" :value="lingkungan">Dusun/Lingkungan {{lingkungan}}</option>
 					    		</select>
 					    	</div>
 
@@ -356,7 +383,7 @@
 
 					    	<div class="form-group">
 					    		<label>Bidang Pembangunan</label>
-					    		<select class="form-control" v-model="usulan.Kd_Pem">
+					    		<select class="form-control" v-model="usulan.Kd_Pem" @change="loadRpjmd()">
 					    			<option v-for="bidang_pembangunan in bidPembangunan" :value="bidang_pembangunan.Kd_Pem">{{bidang_pembangunan.Bidang_Pembangunan}}</option>
 					    		</select>
 					    	</div>
@@ -430,9 +457,9 @@
 				    <!-- Modal body -->
 				    <div class="modal-body">
 				    	<div style="max-height:450px;overflow-x: auto;" class="container">
-				    		<div class="upload-btn-wrapper" style="width: 100%">
-				    			<button class="btn btn-primary btn-block btn-upload"><i class="fa fa-cloud-upload"></i> Upload Berkas</button>
-				    			<input type="file" multiple="" @change="initFile" accept='image/*'/>
+				    		<div class="upload-btn-wrapper" style="width: 100%;height: auto;" v-if="acara.status==1">
+				    			<button class="btn btn-primary btn-block btn-upload" @click="openDokumenUpload()"><i class="fa fa-cloud-upload"></i> Upload Berkas</button>
+				    			<input type="file" multiple="" @change="initFile" accept='image/*' name="dokumen_file" style="height: 0;" />
 				    		</div>
 
 					    	<div class="row" id="lcl_elems_wrapper">
@@ -443,7 +470,7 @@
 				    				<i><center>Tidak ada berkas</center></i>
 					    		</div>
 					    		<div class="col-sm-12 col-md-4" v-for="berkas in berkasUsulans">
-					    			<div class="image-float-action-button">
+					    			<div class="image-float-action-button" v-if="acara.status==1">
 					    				<button class="btn btn-danger" @click="deleteMedia(berkas.Kd_Media)"><i class="fa fa-trash"></i></button>
 					    			</div>
 					    			<a :href="mediaUrl+'/'+berkas.Nm_Media" :title="berkas.Judul_Media" :data-lcl-txt="berkas.Judul_Media" :data-lcl-author="user.username">
@@ -529,6 +556,10 @@ export default {
 		return {
 			auth:{},
 			id_usulan		:0,
+			modalMulai		:false,
+			mulaiStatus		:false,
+			musrenbangTimer :0,
+			infoMusrenbang	:{},
 			berkasUsulans	:{},
 			berkasDokumens	:{},
 			dataUsulans		:{},
@@ -538,19 +569,13 @@ export default {
 			bidPembangunan 	:{},
 			rpjmd 		 	:{},
 			user 			:{},
-			acara 			:{},
-			dapil 			:{
-				dewan:{
-					Nm_Dewan:''
-				},
-				fraksi:{
-					Nm_Fraksi:''
-				},
-				komisi:{
-					Nm_Komisi:''
-				}
+			kelompok		:{
+				kelurahan:{},
+				kecamatan:{}
 			},
+			acara 			:{},
 			usulan 			:{},
+			errors 			:{},
 			token 			:'',
 			env 			:'',
 			uploadingMessage:'',
@@ -563,6 +588,7 @@ export default {
 			loginFailStatus		:0,
 			usulanSuccessStatus	:0,
 			usulanFailStatus	:0,
+			countUpFromTimeInterval:'',
 		}
 	},
 	async created(){
@@ -594,17 +620,27 @@ export default {
 				location='login.html'
 			else
 			{
-				this.user = await data.data
-				this.dapil = await data.dapil		
+				this.user = await data.data	
+				this.kelompok = {kelurahan:data.kelurahan,kecamatan:data.kecamatan}
 			}
 			return data
 		},
-		async mulaiReses(){
+		async mulaiMusrenbang(){
 			var vm = this
-			let response = await fetch(window.config.getApiUrl()+'api/mulai-reses&token='+this.token)
+			let response = await fetch(window.config.getApiUrl()+'api/mulai-musrenbang&token='+this.token,{
+				method:'POST',
+				body:JSON.stringify(this.infoMusrenbang)
+			})
 			let data = await response.json()
+			if(data.status == 'error')
+			{
+				this.errors = data.data
+			}
 			if(data.status == 'success')
+			{
 				vm.loadAcara()
+				this.mulaiStatus = true
+			}
 			return data
 		},
 		cetakUsulan(){
@@ -612,7 +648,7 @@ export default {
 		},
 		resetData(){
 			var vm = this
-			fetch(window.config.getApiUrl()+'api/reset-reses&token='+this.token)
+			fetch(window.config.getApiUrl()+'api/reset-musrenbang&token='+this.token)
 			.then(res => res.json())
 			.then(res => {
 				if(res.status == 'success')
@@ -623,15 +659,15 @@ export default {
 			var vm = this
 			Swal.fire({
 			  title: 'Konfirmasi ?',
-			  text: "Apakah anda yakin menyelesaikan reses serta mengirim data usulan ke OPD?",
+			  text: "Apakah anda yakin menyelesaikan musrenbang?",
 			  type: 'warning',
 			  showCancelButton: true,
 			  confirmButtonColor: '#3085d6',
 			  cancelButtonColor: '#d33',
-			  confirmButtonText: 'Ya, Kirim Usulan!'
+			  confirmButtonText: 'Ya, Selesaikan Musrenbang!'
 			}).then((result) => {
 			  if (result.value) {
-			    fetch(window.config.getApiUrl()+'api/selesai-reses&token='+this.token)
+			    fetch(window.config.getApiUrl()+'api/selesai-musrenbang&token='+this.token)
 				.then(res => res.json())
 				.then(res => {
 					if(res.status == 'success')
@@ -660,10 +696,13 @@ export default {
 	    openFileUpload(){
 	    	document.querySelector('input[name=file_dokumen]').click()
 	    },
+	    openDokumenUpload(){
+	    	document.querySelector('input[name=dokumen_file]').click()
+	    },
 	    async sendUsulan(){
-	    	let response = await fetch(window.config.getApiUrl()+'api/simpan-usulan-reses',{
+	    	let response = await fetch(window.config.getApiUrl()+'api/simpan-usulan-musrenbang',{
 	    		method:'POST',
-	    		body:JSON.stringify({token:this.token,usulan:this.usulan,kamusUsulan:this.kamusUsulan})
+	    		body:JSON.stringify({token:this.token,kelompok:this.kelompok,usulan:this.usulan,kamusUsulan:this.kamusUsulan})
 	    	})
 
 	    	let data = await response.json()
@@ -685,9 +724,9 @@ export default {
 	    	return data
 	    },
 	    async updateUsulan(){
-	    	let response = await fetch(window.config.getApiUrl()+'api/update-usulan-reses',{
+	    	let response = await fetch(window.config.getApiUrl()+'api/update-usulan-musrenbang',{
 	    		method:'POST',
-	    		body:JSON.stringify({id:this.id_usulan,token:this.token,usulan:this.usulan,kamusUsulan:this.kamusUsulan})
+	    		body:JSON.stringify({id:this.id_usulan,kelompok:this.kelompok,token:this.token,usulan:this.usulan,kamusUsulan:this.kamusUsulan})
 	    	})
 
 	    	let data = await response.json()
@@ -758,7 +797,7 @@ export default {
 		    	{
 		    		formData.append('imageFile[]',files[i])
 		    	}
-		    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-kegiatan-reses&token='+vm.token+'&jenis='+result.value,{
+		    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-kegiatan-musrenbang&token='+vm.token+'&jenis='+result.value,{
 		    		method:'POST',
 		    		body:formData
 		    	})
@@ -784,7 +823,7 @@ export default {
 	    		formData.append('imageFile[]',files[i])
 	    	}
 
-	    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-reses&token='+this.token+'&id='+this.id_usulan,{
+	    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-musrenbang&token='+this.token+'&id='+this.id_usulan,{
 	    		method:'POST',
 	    		body:formData
 	    	})
@@ -800,7 +839,7 @@ export default {
 	    },
 	    async loadBerkas(id){
 	    	this.id_usulan = id
-	    	let response = await fetch(window.config.getApiUrl()+'api/get-media&id='+id)
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-media-musrenbang-desa&id='+id)
 			let data = await response.json()
 			this.berkasUsulans = data
 			return data
@@ -823,7 +862,7 @@ export default {
 			  confirmButtonText: 'Ya, Hapus Usulan!'
 			}).then((result) => {
 			  if (result.value) {
-			    fetch(window.config.getApiUrl()+'api/hapus-usulan-reses',{
+			    fetch(window.config.getApiUrl()+'api/hapus-usulan-musrenbang',{
 		    		method:'POST',
 		    		body:JSON.stringify({id:id,token:this.token})
 		    	})
@@ -847,6 +886,46 @@ export default {
 			})
 	    	
 	    },
+	    kirimUsulan(id){
+	    	var vm = this
+			Swal.fire({
+			  title: 'Konfirmasi ?',
+			  text: "Apakah anda yakin meneruskan usulan ini ke tingkat kecamatan?",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Ya, Teruskan Usulan!'
+			}).then((result) => {
+			  if (result.value) {
+			    fetch(window.config.getApiUrl()+'api/teruskan-usulan-musrenbang',{
+		    		method:'POST',
+		    		body:JSON.stringify({id:id,token:this.token})
+		    	})
+		    	.then(res => res.json())
+		    	.then(res => {
+		    		if(res.status == 'success')
+			    	{
+			    		Swal.fire(
+						  'Berhasil!',
+						  'Usulan berhasil di teruskan!',
+						  'success'
+						)
+			    	}
+			    	else
+			    	{
+			    		Swal.fire(
+						  'Gagal!',
+						  'Usulan gagal di teruskan!',
+						  'fail'
+						)
+			    	}
+			    	vm.loadDataUsulans()
+		    	})
+			  }
+			})
+	    	
+	    },
 	    deleteMedia(id){
 	    	var vm = this
 			Swal.fire({
@@ -862,11 +941,14 @@ export default {
 			    fetch(window.config.getApiUrl()+'api/hapus-media&id='+id)
 		    	.then(res => res.json())
 		    	.then(res => {
-			    	vm.loadBerkas()
+			    	vm.loadBerkas(vm.id_usulan)
 		    	})
 			  }
 			})
 	    	
+	    },
+	    showModalMulai(){
+	    	this.modalMulai = true
 	    },
 		async loadKamus(){
 			var param = this.keyword == '' ? '' : '&param='+this.keyword
@@ -876,30 +958,35 @@ export default {
 			return data
 		},
 		async loadDataUsulans(){
-			let response = await fetch(window.config.getApiUrl()+'api/usulan-reses&token='+this.token)
+			let response = await fetch(window.config.getApiUrl()+'api/usulan-musrenbang&token='+this.token)
 			let data = await response.json()
 			this.dataUsulans = data
 			return data
 		},
 		async tampilRiwayat(id){
-			let response = await fetch(window.config.getApiUrl()+'api/riwayat-usulan&id='+id)
+			let response = await fetch(window.config.getApiUrl()+'api/riwayat-usulan-musrenbang&id='+id)
 			let data = await response.json()
 			this.dataRiwayats = data
 			return data
 		},
 		async editUsulan(id){
 			this.id_usulan = id
-			let response = await fetch(window.config.getApiUrl()+'api/get-reses&id='+id)
+			let response = await fetch(window.config.getApiUrl()+'api/get-usulan-musrenbang&id='+id)
 			let data = await response.json()
 			this.usulan = data
 			this.kamusUsulan = this.kamusUsulans.find(o => o.kode_kamus === data.Kd_Kamus_Usulan)
+			this.loadRpjmd()
 			return data
 		},
 		async loadAcara()
 		{
-			let response = await fetch(window.config.getApiUrl()+'api/acara-reses&token='+this.token)
+			let response = await fetch(window.config.getApiUrl()+'api/acara-musrenbang&token='+this.token)
 			let data = await response.json()
 			this.acara = data
+			if(this.acara.status == 1)
+			{
+				this.countUpFromTime(data.data.Waktu_Mulai*1000)
+			}
 			return data
 		},
 		async loadBidangPembangunan()
@@ -912,7 +999,8 @@ export default {
 		},
 		async loadRpjmd()
 		{
-			await fetch(window.config.getApiUrl()+'api/rpjmd-by-pembangunan&id='+this.usulan.kd_pem)
+			var kd_pem = this.usulan.kd_pem ? this.usulan.kd_pem : this.usulan.Kd_Pem
+			await fetch(window.config.getApiUrl()+'api/rpjmd-by-pembangunan&id='+kd_pem)
 			.then(res=>res.json())
 			.then(res => {
 				this.rpjmd = res
@@ -925,6 +1013,35 @@ export default {
 			.then(res => {
 				this.rpjmd = res
 			});
+		},
+		countUpFromTime(countFrom) {
+			var vm = this
+		  	countFrom = new Date(countFrom).getTime();
+		  	var now = new Date(),
+		      countFrom = new Date(countFrom),
+		      timeDifference = (now - countFrom);
+		    
+		  	var secondsInADay = 60 * 60 * 1000 * 24,
+		      secondsInAHour = 60 * 60 * 1000;
+		    
+		  	var days = Math.floor(timeDifference / (secondsInADay) * 1);
+		  	var hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
+		  	var mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
+		  	var secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
+
+		  	// var idEl = document.getElementById(id);
+		  	// idEl.getElementsByClassName('days')[0].innerHTML = days;
+		  	// idEl.getElementsByClassName('hours')[0].innerHTML = hours;
+		  	// idEl.getElementsByClassName('minutes')[0].innerHTML = mins;
+		  	// idEl.getElementsByClassName('seconds')[0].innerHTML = secs;
+		  	hours = hours.toString().length == 1 ? "0" + hours : hours
+		  	mins = mins.toString().length == 1 ? "0" + mins : mins
+		  	secs = secs.toString().length == 1 ? "0" + secs : secs
+
+		  	this.musrenbangTimer = hours+':'+mins+':'+secs
+
+		  	clearTimeout(vm.countUpFromTimeInterval);
+		  	vm.countUpFromTimeInterval = setTimeout(function(){ vm.countUpFromTime(countFrom); }, 1000);
 		}
 	},
 	computed:{
