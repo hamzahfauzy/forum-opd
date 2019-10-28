@@ -6,7 +6,7 @@ var config = {
 		return 'http://eplanning.asahankab.go.id/simulasiv2/eperencanaan/web/uploads';
 	},
 	getRoleName: () => {
-		return 'Operator_Kelurahan'
+		return 'Operator_Kecamatan'
 	},
 	getLinkCetakUsulanPokir: () => {
 		return window.config.getApiUrl() + 'api/cetak-rekapitulasi&token=';
@@ -21,6 +21,6 @@ var config = {
 		return 'simulasi'
 	},
 	getAppName: () => {
-		return 'E-Musrenbang Desa'
+		return 'E-Musrenbang Kecamatan'
 	}
 }

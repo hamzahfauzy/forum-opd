@@ -22,13 +22,14 @@
 			<div class="logo">
 				<img :src="user.avatar_url ? mediaUrl+'/'+user.avatar_url : 'assets/face1.jpg'" class="profile-picture" width="100px" height="100px" data-toggle="modal" data-target="#modalProfile">
 				<p></p>
-				<h2 class="username-label">{{kelompok.kelurahan.Nm_Kel}} - {{kelompok.kecamatan.Nm_Kec}}</h2>
-				<h4>Selamat Datang di E-Musrenbang Desa Kabupaten Asahan</h4>
+				<h2 class="username-label">{{kelompok.kecamatan.Nm_Kec}}</h2>
+				<h4>Selamat Datang di E-Musrenbang Kecamatan Kabupaten Asahan</h4>
 				<h4 v-if="acara.status == 1">{{musrenbangTimer}}</h4>
 				<div class="z-desktop">
 					<a href="#" class="btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalMulaiMusrenbang" @click="showModalMulai()">Mulai Musrenbang</a>
 					<a href="#" class="btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
 					<a href="#" class="btn me-btn" v-if="acara.status == 1" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Input Usulan</a>
+					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDesa" @click="loadDesa()">Lihat Usulan Desa/Kelurahan</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
 					<a href="#" class="btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
 					<a href="#" class="btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Musrenbang</a>
@@ -40,6 +41,7 @@
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalMulaiMusrenbang" @click="showModalMulai()">Mulai Musrenbang</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Lihat Kamus Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" v-if="acara.status == 1" data-toggle="modal" data-target="#modalKamus" @click="loadKamus()">Input Usulan</a>
+						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDesa" @click="loadDesa()">Lihat Usulan Desa/Kelurahan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDataUsulan" v-if="acara.status > 0" @click="loadDataUsulans()">Lihat Data Usulan</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" data-toggle="modal" data-target="#modalDokumen" v-if="acara.status > 0">Dokumen</a>
 						<a href="#" class="col-sm-12 col-md-4 btn me-btn" @click="selesaiReses()" v-if="acara.status == 1">Selesaikan Musrenbang</a>
@@ -73,10 +75,6 @@
 				    			</center>
 				    		</div>
 				    		<div class="col-sm-12 col-md-6">
-				    			<h5>Desa/Kelurahan</h5>
-				    			<span>{{kelompok.kelurahan.Nm_Kel}}</span>
-				    			<br><br>
-
 				    			<h5>Kecamatan</h5>
 				    			<span>{{kelompok.kecamatan.Nm_Kec}}</span>
 				    		</div>
@@ -106,29 +104,51 @@
 
 				    <!-- Modal body -->
 				    <div class="modal-body">
-				    	<div class="alert alert-success" role="alert" v-if="mulaiStatus">
-							Musrenbang Berhasil dimulai!
-						</div>
-				    	<div class="form-group">
-				    		<label>Nama Tempat</label>
-			    			<input type="text" class="form-control" v-model="infoMusrenbang.Nama_Tempat" :disabled="acara.status > 0">
-			    			<span style="color:red;" :class="{'d-none':!errors.Nama_Tempat}">Nama Tempat tidak boleh kosong!</span>
-			    		</div>
-			    		<div class="form-group">
-			    			<label>Alamat</label>
-				   			<textarea class="form-control" v-model="infoMusrenbang.Alamat" :disabled="acara.status > 0"></textarea>
-				   			<span style="color:red;" :class="{'d-none':!errors.Alamat}">Alamat tidak boleh kosong!</span>
-				   		</div>
-				   		<div class="form-group">
-				   			<label>Nama Kepala Desa/Lurah</label>
-				    		<input type="text" class="form-control" v-model="infoMusrenbang.Nama_Pejabat" :disabled="acara.status > 0">
-				    		<span style="color:red;" :class="{'d-none':!errors.Nama_Pejabat}">Nama Kepala Desa/Lurah tidak boleh kosong!</span>
+				    	<div v-if="!canStart">
+				    		Musrenbang tidak dapat di mulai.
+				    		<br>
+				    		Terdapat desa yang belum melaksanakan atau sedang melaksanakan musrenbang.
+				    		<div style="max-height:450px;overflow: auto;">
+						    	<table class="table table-bordered">
+						    		<tr v-for="(desa,index) in listAcaraDesa">
+						    			
+						    			<td>
+						    				{{desa.data.Nm_Kel}}
+						    			</td>
+						    			<td align="center" style="vertical-align: middle;">
+						    				<span v-if="desa.acara == null">Belum Melaksanakan</span>
+						    				<span v-if="desa.acara != null && desa.acara.Waktu_Selesai == 0">Sedang Melaksanakan</span>
+						    				<span v-if="desa.acara != null && desa.acara.Waktu_Selesai != 0">Sudah Melaksanakan</span>
+						    			</td>
+						    		</tr>
+						    	</table>
+					    	</div>
+				    	</div>
+				    	<div v-if="canStart">
+					    	<div class="alert alert-success" role="alert" v-if="mulaiStatus">
+								Musrenbang Berhasil dimulai!
+							</div>
+					    	<div class="form-group">
+					    		<label>Nama Tempat</label>
+				    			<input type="text" class="form-control" v-model="infoMusrenbang.Nama_Tempat" :disabled="acara.status > 0">
+				    			<span style="color:red;" :class="{'d-none':!errors.Nama_Tempat}">Nama Tempat tidak boleh kosong!</span>
+				    		</div>
+				    		<div class="form-group">
+				    			<label>Alamat</label>
+					   			<textarea class="form-control" v-model="infoMusrenbang.Alamat" :disabled="acara.status > 0"></textarea>
+					   			<span style="color:red;" :class="{'d-none':!errors.Alamat}">Alamat tidak boleh kosong!</span>
+					   		</div>
+					   		<div class="form-group">
+					   			<label>Nama Kepala Desa/Lurah</label>
+					    		<input type="text" class="form-control" v-model="infoMusrenbang.Nama_Pejabat" :disabled="acara.status > 0">
+					    		<span style="color:red;" :class="{'d-none':!errors.Nama_Pejabat}">Nama Kepala Desa/Lurah tidak boleh kosong!</span>
+					    	</div>
 				    	</div>
 				    </div>
 
 				    <!-- Modal footer -->
 				    <div class="modal-footer">
-				    	<button type="button" class="btn btn-primary" @click="mulaiMusrenbang()">Mulai</button>
+				    	<button v-if="canStart" type="button" class="btn btn-primary" @click="mulaiMusrenbang()">Mulai</button>
 				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				    </div>
 				</div>
@@ -167,6 +187,88 @@
 				    			</td>
 				    			<td v-if="acara.status == 1" align="center" style="vertical-align: middle;">
 				    				<button class="btn btn-success" data-toggle="modal" data-target="#modalUsulan" @click="setUsulan(kamus)">Usulkan</button>
+				    			</td>
+				    		</tr>
+				    	</table>
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalDesa">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Daftar Desa/Kelurahan Kecamatan {{kelompok.kecamatan.Nm_Kec}}</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div style="max-height:450px;overflow: auto;">
+				    	<table class="table table-bordered">
+				    		<tr v-for="(desa,index) in listDesa">
+				    			
+				    			<td>
+				    				{{desa.Nm_Kel}}
+				    			</td>
+				    			<td align="center" style="vertical-align: middle;">
+				    				<button class="btn btn-success" data-toggle="modal" data-target="#modalUsulanDesa" @click="lihatUsulanDesa(desa.Kd_Prov,desa.Kd_Kab,desa.Kd_Kec,desa.Kd_Kel,desa.Kd_Urut)">Lihat Usulan</button>
+				    			</td>
+				    		</tr>
+				    	</table>
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalUsulanDesa">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Usulan Desa/Kelurahan</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div style="max-height:450px;overflow: auto;">
+				    		<center>
+				    			<span v-if="!listUsulanDesa.length"><i>Tidak ada data!</i></span>
+				    		</center>
+				    	<table class="table table-bordered">
+				    		<tr v-for="(data,index) in listUsulanDesa">
+				    			
+				    			<td>
+				    				<span class="badge badge-warning" v-if="data.usulan.Status_Pembahasan == 0">Usulan Pembahasan Desa</span>
+					    			<span class="badge badge-success" v-if="data.usulan.Status_Pembahasan == 1">Usulan Pembahasan Kecamatan</span><br>
+					    				{{data.usulan.Jenis_Usulan}}
+					    			<br>
+					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
+					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kecamatan.Nm_Kec}}</p>
+					    				
+					    				Rp. {{data.usulan.Harga_Total.toLocaleString()}} / {{data.usulan.Jumlah}} {{data.satuan.Uraian}}
+					    			<br>
+					    			<b>{{data.refSubUnit.Nm_Sub_Unit}}</b>
+					    			<br>
+					    			<center>
+						    			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-history"></i> Riwayat</button>
+						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-file"></i> Berkas</button>
+					    			</center>
 				    			</td>
 				    		</tr>
 				    	</table>
@@ -556,9 +658,13 @@ export default {
 		return {
 			auth:{},
 			id_usulan		:0,
+			canStart		:true,
 			modalMulai		:false,
 			mulaiStatus		:false,
 			musrenbangTimer :0,
+			listDesa		:{},
+			listUsulanDesa	:{},
+			listAcaraDesa	:{},
 			infoMusrenbang	:{},
 			berkasUsulans	:{},
 			berkasDokumens	:{},
@@ -570,7 +676,6 @@ export default {
 			rpjmd 		 	:{},
 			user 			:{},
 			kelompok		:{
-				kelurahan:{},
 				kecamatan:{}
 			},
 			acara 			:{},
@@ -594,7 +699,7 @@ export default {
 	async created(){
 		this.loader = false
 		this.env = window.config.getEnv()
-		this.token = window.localStorage.getItem('eplanning_pokir_token')
+		this.token = window.localStorage.getItem('emusrenbang_kecamatan_token')
 		this.role_name = window.config.getRoleName()
 		this.mediaUrl = window.config.getMediaUrl()
 		this.linkCetakUsulan = window.config.getLinkCetakUsulanPokir()
@@ -690,7 +795,7 @@ export default {
 	    	}
 	    },
 	    doLogout(){
-	    	window.localStorage.removeItem('eplanning_pokir_token')
+	    	window.localStorage.removeItem('emusrenbang_kecamatan_token')
 	    	location='login.html'
 	    },
 	    openFileUpload(){
@@ -850,6 +955,18 @@ export default {
 			this.berkasDokumens = data
 			return data
 	    },
+	    async loadDesa(){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-desa&Kd_Prov='+this.kelompok.kecamatan.Kd_Prov+'&Kd_Kab='+this.kelompok.kecamatan.Kd_Kab+'&Kd_Kec='+this.kelompok.kecamatan.Kd_Kec)
+			let data = await response.json()
+			this.listDesa = data
+			return data
+	    },
+	    async lihatUsulanDesa(Kd_Prov,Kd_Kab,Kd_Kec,Kd_Kel,Kd_Urut){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-desa&Kd_Prov='+Kd_Prov+'&Kd_Kab='+Kd_Kab+'&Kd_Kec='+Kd_Kec+'&Kd_Kel='+Kd_Kel+'&Kd_Urut='+Kd_Urut)
+			let data = await response.json()
+			this.listUsulanDesa = data
+			return data
+	    },
 	    deleteUsulan(id){
 	    	var vm = this
 			Swal.fire({
@@ -947,8 +1064,20 @@ export default {
 			})
 	    	
 	    },
-	    showModalMulai(){
+	    async showModalMulai(){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-acara-desa&Kd_Prov='+this.kelompok.kecamatan.Kd_Prov+'&Kd_Kab='+this.kelompok.kecamatan.Kd_Kab+'&Kd_Kec='+this.kelompok.kecamatan.Kd_Kec)
+			let data = await response.json()
+			var vm = this
+			data.forEach(val => {
+				if(val.acara == null || val.acara.Waktu_Selesai == 0)
+				{
+					vm.canStart = false
+					return
+				}
+			})
 	    	this.modalMulai = true
+	    	this.listAcaraDesa = data
+			return data
 	    },
 		async loadKamus(){
 			var param = this.keyword == '' ? '' : '&param='+this.keyword
