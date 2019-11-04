@@ -218,8 +218,9 @@
 				    		<tr v-for="(desa,index) in listDesa">
 				    			
 				    			<td>
-				    				{{desa.Nm_Kel}}<br>
-				    				<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalUsulanDesa" @click="lihatUsulanDesa(desa.Kd_Prov,desa.Kd_Kab,desa.Kd_Kec,desa.Kd_Kel,desa.Kd_Urut)"><i class="fa fa-eye"></i> Lihat Usulan</button>
+				    				<b>{{ desa.desa.Kd_Kel == 2 ? 'Desa' : 'Kelurahan' }} {{desa.desa.Nm_Kel}}</b><br>
+				    				<span>Jumlah Usulan : <b>{{desa.jumlah_usulan}}</b></span><br>
+				    				<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalUsulanDesa" @click="lihatUsulanDesa(desa.desa.Kd_Prov,desa.desa.Kd_Kab,desa.desa.Kd_Kec,desa.desa.Kd_Kel,desa.desa.Kd_Urut)"><i class="fa fa-eye"></i> Lihat Usulan</button>
 				    			</td>
 				    		</tr>
 				    	</table>
@@ -264,8 +265,9 @@
 					    			<br>
 					    			<b>{{data.refSubUnit.Nm_Sub_Unit}}</b>
 					    			<br>
+					    			<span v-if="data.musrenbang != undefined && data.musrenbang.Skor != null">Skor : {{data.musrenbang.Skor}}</span>
 					    			<center>
-						    			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringDesa(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-calculator"></i> Skoring</button>
+						    			<button v-if="data.musrenbang != undefined && data.musrenbang.Skor == null" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringDesa(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-calculator"></i> Skoring</button>
 						    			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayatDesa(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkasDesa" @click="loadBerkas(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
@@ -409,7 +411,9 @@
 					    				<br>
 					    				<b>{{data.refSubUnit.Nm_Sub_Unit}}</b>
 					    				<br>
+					    				<span v-if="data.usulan.Skor != null">Skor : {{data.usulan.Skor}}</span>
 					    				<center>
+					    					<button class="btn btn-sm btn-primary" v-if="data.usulan.Skor == null" data-toggle="modal" data-target="#modalSkoring" @click="skoring(data.usulan.id)"><i class="fa fa-calculator"></i> Skoring</button>
 						    				<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
 						    				<button class="btn btn-sm btn-primary" v-if="acara.status == 1" data-toggle="modal" data-target="#modalEditUsulan" @click="editUsulan(data.usulan.id)"><i class="fa fa-pencil"></i> Edit</button>
 						    				<button class="btn btn-sm btn-danger" v-if="acara.status == 1" @click="deleteUsulan(data.usulan.id)"><i class="fa fa-trash"></i> Hapus</button>
@@ -707,6 +711,21 @@
 
 				    <!-- Modal body -->
 				    <div class="modal-body">
+				    		<h5>Usulan yang akan di skor</h5>
+					    	<table class="table table-bordered" v-if="usulanDesa.usulan != undefined">
+					    		<tr>
+					    			<td>
+						    			{{usulanDesa.usulan.Jenis_Usulan}}
+						    			<br>
+						    			<p style="color: #333;font-size: 12px;">{{usulanDesa.usulan.Nm_Permasalahan}}</p>
+						    			<p style="color: #333;font-size: 12px;">{{usulanDesa.usulan.Detail_Lokasi}} - {{usulanDesa.kecamatan.Nm_Kec}}</p>
+						    				
+						    				Rp. {{usulanDesa.usulan.Harga_Total.toLocaleString()}} / {{usulanDesa.usulan.Jumlah}} {{usulanDesa.satuan.Uraian}}
+						    			<br>
+						    			<b>{{usulanDesa.refSubUnit.Nm_Sub_Unit}}</b>
+					    			</td>
+					    		</tr>
+					    	</table>
 				    	<div style="max-height:450px;overflow-x: auto;" class="container">
 					    	<table class="table table-bordered">
 					    		<tr>
@@ -730,7 +749,7 @@
 					    			<td v-else>
 					    				{{bobot.Range}}
 					    			</td>
-									<td><input type="radio" name="bobot[<?= $val->Kd_Kriteria ?>]" :value="bobot.Skor"></td>
+									<td><input type="radio" v-model="nilaiSkor[kriteria.kriteria.Kd_Kriteria]" :value="bobot.Skor"></td>
 								</tr>
 								</tbody>
 					    	</table>
@@ -739,7 +758,8 @@
 
 				    <!-- Modal footer -->
 				    <div class="modal-footer">
-				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    	<button type="button" class="btn btn-primary" :disabled="!saveSkorBtn" @click="saveSkor()">Simpan Skor</button>
+				    	<button type="button" class="btn btn-danger btnSkorClose" data-dismiss="modal">Close</button>
 				    </div>
 				</div>
 			</div>
@@ -808,6 +828,7 @@ export default {
 			berkasDokumens	:{},
 			dataUsulans		:{},
 			dataRiwayats	:{},
+			usulanDesa		:{},
 			kamusUsulans	:{},
 			kamusUsulan 	:{},
 			bidPembangunan 	:{},
@@ -832,6 +853,11 @@ export default {
 			loginFailStatus		:0,
 			usulanSuccessStatus	:0,
 			usulanFailStatus	:0,
+			nilaiSkor		: {},
+			saveSkorBtn		: false,
+			jumlahKriteria 	: 0,
+			jumlahTerjawab	: 0,
+			jumlahSkor		: 0,
 			countUpFromTimeInterval:'',
 		}
 	},
@@ -851,7 +877,6 @@ export default {
 		await this.loadKamus()
 		await this.loadBerkasKegiatan()
 		this.loader = true
-		console.log(this.skor)
 	},
 	methods: {
 		async authChecker(){
@@ -1206,16 +1231,81 @@ export default {
 			})
 	    	
 	    },
+	    saveSkor(){
+	    	var vm = this
+			Swal.fire({
+			  title: 'Konfirmasi ?',
+			  text: "Apakah anda yakin menyimpan skor ini?",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Ya, Simpan Skor!'
+			}).then((result) => {
+			  if (result.value) {
+			    fetch(window.config.getApiUrl()+'api/save-skor',{
+		    		method:'POST',
+		    		body:JSON.stringify({id:vm.id_usulan,token:vm.token,skor:vm.nilaiSkor})
+		    	})
+		    	.then(res => res.json())
+		    	.then(res => {
+		    		if(res.status == 'success')
+			    	{
+			    		vm.id_usulan = 0
+			    		vm.jumlahTerjawab = 0
+			    		vm.nilaiSkor = {}
+			    		vm.saveSkorBtn = false
+			    		document.querySelector('.btnSkorClose').click();
+			    		if(res.usulan.Kd_Asal_Usulan == 2)
+			    			vm.lihatUsulanDesa(res.usulan.Kd_Prov,res.usulan.Kd_Kab,res.usulan.Kd_Kec,res.usulan.Kd_Kel,res.usulan.Kd_Urut_Kel)
+			    		else
+			    			vm.loadDataUsulan()
+			    		Swal.fire(
+						  'Berhasil!',
+						  'Skor berhasil Disimpan!',
+						  'success'
+						)
+			    	}
+			    	else
+			    	{
+			    		Swal.fire(
+						  'Gagal!',
+						  'Skor gagal Disimpan!',
+						  'fail'
+						)
+			    	}
+			    	vm.loadDataUsulans()
+		    	})
+			  }
+			})
+	    	
+	    },
 	    async skoring(id){
+	    	this.nilaiSkor = {}
+	    	this.jumlahTerjawab = 0
+	    	this.id_usulan = id
+	    	let usulanDesa = await fetch(window.config.getApiUrl()+'api/get-usulan-kecamatan-by-id&id='+id)
+			let dataUsulanDesa = await usulanDesa.json()
+			this.usulanDesa = dataUsulanDesa
+
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-kriteria-kecamatan&id='+id)
 			let data = await response.json()
 			this.kriteriaSkoring = data
+			this.jumlahKriteria = data.kriteria.length
 			return data
 	    },
 	    async skoringDesa(id){
+	    	this.nilaiSkor = {}
+	    	this.jumlahTerjawab = 0
+	    	let usulanDesa = await fetch(window.config.getApiUrl()+'api/get-usulan-desa-by-id&id='+id)
+			let dataUsulanDesa = await usulanDesa.json()
+			this.usulanDesa = dataUsulanDesa
+
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-kriteria-kecamatan&id='+id+'&desa=1')
 			let data = await response.json()
 			this.kriteriaSkoring = data
+			this.id_usulan = data.id
+			this.jumlahKriteria = data.kriteria.length
 			return data
 	    },
 	    async showModalMulai(){
@@ -1302,7 +1392,7 @@ export default {
 		async loadDusun()
 		{
 			var desa = this.usulan.desa ? this.usulan.desa : this.usulan.desa
-			console.log(desa)
+			
 			await fetch(window.config.getApiUrl()+'api/get-lingkungan-by-kelurahan&Kd_Prov='+desa.Kd_Prov+'&Kd_Kab='+desa.Kd_Kab+'&Kd_Kec='+desa.Kd_Kec+'&Kd_Kel='+desa.Kd_Kel+'&Kd_Urut='+desa.Kd_Urut)
 			.then(res=>res.json())
 			.then(res => {
@@ -1345,6 +1435,16 @@ export default {
 
 		  	clearTimeout(vm.countUpFromTimeInterval);
 		  	vm.countUpFromTimeInterval = setTimeout(function(){ vm.countUpFromTime(countFrom); }, 1000);
+		}
+	},
+	watch:{
+		nilaiSkor: function(val){
+			this.jumlahTerjawab = Object.keys(val).length
+			if(this.jumlahTerjawab == 0)
+				return
+			if(this.jumlahTerjawab == this.jumlahKriteria)
+				this.saveSkorBtn = true
+
 		}
 	},
 	computed:{
