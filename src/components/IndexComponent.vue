@@ -265,7 +265,8 @@
 					    			<b>{{data.refSubUnit.Nm_Sub_Unit}}</b>
 					    			<br>
 					    			<center>
-						    			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-history"></i> Riwayat</button>
+						    			<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringDesa(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-calculator"></i> Skoring</button>
+						    			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayatDesa(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkasDesa" @click="loadBerkas(data.usulan.Kd_Ta_Musrenbang_Kelurahan)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
 				    			</td>
@@ -694,6 +695,56 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="modalSkoring">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Modal Skoring</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div style="max-height:450px;overflow-x: auto;" class="container">
+					    	<table class="table table-bordered">
+					    		<tr>
+									<td>No.</td>
+									<td>Kriteria</td>
+									<td>Range</td>
+									<td>Pilih</td>
+								</tr>
+								<tbody v-for="(kriteria,index) in kriteriaSkoring.kriteria" :key="++index">
+					    		<tr v-for="(bobot,idx) in kriteria.bobot">
+					    			<td v-if="idx == 0">{{index}}</td>
+					    			<td v-else>&nbsp;</td>
+					    			<td v-if="idx == 0" :key="++idx">
+					    				<span v-if="kriteria.kriteria.Kriteria == 'MANFAAT/DAMPAK'">{{kriteria.kriteria.Kriteria}} {{kriteriaSkoring.bidangPembangunan}}</span>
+					    				<span v-else>{{kriteria.kriteria.Kriteria}}</span>
+					    			</td>
+					    			<td v-else>&nbsp;</td>
+					    			<td v-if="kriteria.kriteria.Kriteria == 'MANFAAT/DAMPAK'">
+					    				{{skor[kriteriaSkoring.Kd_Pem][bobot.Range]}}
+					    			</td>
+					    			<td v-else>
+					    				{{bobot.Range}}
+					    			</td>
+									<td><input type="radio" name="bobot[<?= $val->Kd_Kriteria ?>]" :value="bobot.Skor"></td>
+								</tr>
+								</tbody>
+					    	</table>
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
 
 	</div>
 </template>
@@ -702,12 +753,51 @@
 export default {
 	data(){
 		return {
+			skor : {
+					"1" : { //Infrastruktur
+						"1" : "< 10 KK",
+						"2" : "10 <= 20 KK",
+						"3" : "21 <= 30 KK",
+						"4" : "31 <= 40 KK",
+						"5" : ">40 KK",
+					},
+					"2" : { //sosialbudaya
+						"1" : "< 20 KK",
+						"2" : "20 <= 40 KK",
+						"3" : "41 <= 60 KK",
+						"4" : "61 <= 80 KK",
+						"5" : ">80 KK",
+					},
+					"3" : { //ekonnomi
+						"1" : "< 20 KK",
+						"2" : "20 <= 40 KK",
+						"3" : "41 <= 60 KK",
+						"4" : "61 <= 80 KK",
+						"5" : ">80 KK",
+					},
+					"4" : { //pertanian
+						"1" : "< 20 KK",
+						"2" : "20 <= 40 KK",
+						"3" : "41 <= 60 KK",
+						"4" : "61 <= 80 KK",
+						"5" : ">80 KK",
+					},
+					"5" : { //bidang lainnya
+						"1" : "< 20 KK",
+						"2" : "20 <= 40 KK",
+						"3" : "41 <= 60 KK",
+						"4" : "61 <= 80 KK",
+						"5" : ">80 KK",
+					},
+			},
 			auth:{},
+			noUrut 			:0,
 			id_usulan		:0,
 			canStart		:true,
 			modalMulai		:false,
 			mulaiStatus		:false,
 			musrenbangTimer :0,
+			kriteriaSkoring	:{},
 			listLingkungan	:{},
 			listDesa		:{},
 			listUsulanDesa	:{},
@@ -761,6 +851,7 @@ export default {
 		await this.loadKamus()
 		await this.loadBerkasKegiatan()
 		this.loader = true
+		console.log(this.skor)
 	},
 	methods: {
 		async authChecker(){
@@ -1115,6 +1206,18 @@ export default {
 			})
 	    	
 	    },
+	    async skoring(id){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-kriteria-kecamatan&id='+id)
+			let data = await response.json()
+			this.kriteriaSkoring = data
+			return data
+	    },
+	    async skoringDesa(id){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-kriteria-kecamatan&id='+id+'&desa=1')
+			let data = await response.json()
+			this.kriteriaSkoring = data
+			return data
+	    },
 	    async showModalMulai(){
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-acara-desa&Kd_Prov='+this.kelompok.kecamatan.Kd_Prov+'&Kd_Kab='+this.kelompok.kecamatan.Kd_Kab+'&Kd_Kec='+this.kelompok.kecamatan.Kd_Kec)
 			let data = await response.json()
@@ -1144,7 +1247,15 @@ export default {
 			return data
 		},
 		async tampilRiwayat(id){
+			this.dataRiwayats = {}
 			let response = await fetch(window.config.getApiUrl()+'api/riwayat-usulan-musrenbang-kecamatan&id='+id)
+			let data = await response.json()
+			this.dataRiwayats = data
+			return data
+		},
+		async tampilRiwayatDesa(id){
+			this.dataRiwayats = {}
+			let response = await fetch(window.config.getApiUrl()+'api/riwayat-usulan-musrenbang&id='+id)
 			let data = await response.json()
 			this.dataRiwayats = data
 			return data
