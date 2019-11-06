@@ -21,7 +21,7 @@
 			<div class="dark-overlay"></div>
 			<div class="logo">
 				<img src="assets/logo.png" style="z-index: 2;position: relative;">
-				<h3>E-Musrenbang Kecamatan Kabupaten Asahan</h3>
+				<h3>Forum OPD Kabupaten Asahan</h3>
 				<!-- <h4>Login Form</h4> -->
 				<div class="container z-container">
 					<div class="row">
@@ -71,7 +71,7 @@ export default {
 	},
 	async created(){
 		this.loader = false
-		this.token = window.localStorage.getItem('emusrenbang_kecamatan_token')
+		this.token = window.localStorage.getItem('forum_opd_token')
 		this.role_name = window.config.getRoleName()
 		await this.authChecker()
 	},
@@ -103,7 +103,7 @@ export default {
 				else
 				{
 					this.loginSuccessStatus = 1
-					window.localStorage.setItem('emusrenbang_kecamatan_token',res.data.token)
+					window.localStorage.setItem('forum_opd_token',res.data.token)
 					location='index.html'
 				}
 				this.message = res.message
