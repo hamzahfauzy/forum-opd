@@ -364,8 +364,8 @@
 					    			<a :href="linkCetakAbsensi+token" target="_blank" class="btn btn-block btn-success"><i class="fa fa-cloud-download"></i> Unduh Absensi</a>
 				    			</div>
 				    			<div class="col-sm-12 col-md-4">
-				    				<a v-if="acara.data ? acara.data.Jumlah_Peserta : 0" :href="linkBeritaAcara+token" target="_blank" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a>
-					    			<a v-else href="javascript:void(0)" data-toggle="modal" data-target="#modalBeritaAcara" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a>
+				    				<!-- <a v-if="acara.data ? acara.data.Jumlah_Peserta : 0" :href="linkBeritaAcara+token" target="_blank" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a> -->
+					    			<a href="javascript:void(0)" data-toggle="modal" data-target="#modalBeritaAcara" class="btn btn-block btn-warning"><i class="fa fa-print"></i> Berita Acara</a>
 				    			</div>
 				    			<div class="col-sm-12 col-md-4">
 					    			<button class="btn btn-block btn-primary" @click="openFileUpload"><i class="fa fa-cloud-upload"></i> Upload Berkas</button>
@@ -480,76 +480,76 @@
 				    </div>
 
 				    <!-- Modal body -->
-				    <div class="modal-body">
+				    <div class="modal-body" v-if="acara.data != undefined">
 				    	<div class="form-group">
 				    		<label>Jumlah Peserta</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Jumlah_Peserta">
+			    			<input type="text" class="form-control" v-model="acara.data.Jumlah_Peserta">
 			    			<span style="color:red;" :class="{'d-none':!errors.Jumlah_Peserta}">Jumlah Peserta tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Pimpinan Sidang</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Pimpinan_Sidang">
+			    			<input type="text" class="form-control" v-model="acara.data.Pimpinan_Sidang">
 			    			<span style="color:red;" :class="{'d-none':!errors.Pimpinan_Sidang}">Pimpinan Sidang tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>No. Berita Acara</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Nomor_Berita_Acara">
+			    			<input type="text" class="form-control" v-model="acara.data.Nomor_Berita_Acara">
 			    			<span style="color:red;" :class="{'d-none':!errors.Nomor_Berita_Acara}">No. Berita Acara tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Tanggal Berita Acara</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Tanggal_Berita_Acara">
+			    			<input type="text" class="form-control" v-model="acara.data.Tanggal_Berita_Acara">
 			    			<span style="color:red;" :class="{'d-none':!errors.Tanggal_Berita_Acara}">Tanggal Berita Acara tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Sambutan 1</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Sambutan_1">
+			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_1">
 			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_1}">Sambutan 1 tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Sambutan 2</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Sambutan_2">
+			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_2">
 			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_2}">Sambutan 2 tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Sambutan 3</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Sambutan_3">
+			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_3">
 			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_3}">Sambutan 3 tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Sambutan 4</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Sambutan_4">
+			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_4">
 			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_4}">Sambutan 4 tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Sambutan 5</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Sambutan_5">
+			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_5">
 			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_5}">Sambutan 5 tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Pemateri 1</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Pemateri_1">
+			    			<input type="text" class="form-control" v-model="acara.data.Pemateri_1">
 			    			<span style="color:red;" :class="{'d-none':!errors.Pemateri_1}">Pemateri 1 tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Pemateri 2</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Pemateri_2">
+			    			<input type="text" class="form-control" v-model="acara.data.Pemateri_2">
 			    			<span style="color:red;" :class="{'d-none':!errors.Pemateri_2}">Pemateri 2 tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
 				    		<label>Pemateri 3</label>
-			    			<input type="text" class="form-control" v-model="listBeritaAcara.Pemateri_3">
+			    			<input type="text" class="form-control" v-model="acara.data.Pemateri_3">
 			    			<span style="color:red;" :class="{'d-none':!errors.Pemateri_3}">Pemateri 3 tidak boleh kosong!</span>
 			    		</div>
 			    		
@@ -701,7 +701,7 @@ export default {
 			var vm = this
 			let response = await fetch(window.config.getApiUrl()+'api/save-berita-acara-opd&token='+this.token,{
 				method:'POST',
-				body:JSON.stringify(this.listBeritaAcara)
+				body:JSON.stringify(this.acara.data)
 			})
 			let data = await response.json()
 			if(data.status == 'error')
@@ -840,6 +840,8 @@ export default {
 	    	var file = event.target.files[0]
 	    	if(!file)
 	    		return
+	    	if(this.fileValidation(file))
+	    		return;
 	    	var formData = new FormData();
 	    	formData.append('imgFile',file)
 	    	let response = await fetch(window.config.getApiUrl()+'api/change-avatar&token='+this.token,{
@@ -886,6 +888,8 @@ export default {
 		    	for(var i=0;i<numOfFile;i++)
 		    	{
 		    		formData.append('imageFile[]',files[i])
+		    		if(vm.fileValidation(files[i]))
+	    				return;
 		    	}
 		    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-kegiatan-musrenbang&token='+vm.token+'&jenis='+result.value,{
 		    		method:'POST',
@@ -911,6 +915,8 @@ export default {
 	    	for(var i=0;i<numOfFile;i++)
 	    	{
 	    		formData.append('imageFile[]',files[i])
+	    		if(this.fileValidation(files[i]))
+	    			return;
 	    	}
 
 	    	let response = await fetch(window.config.getApiUrl()+'api/upload-berkas-musrenbang&token='+this.token+'&id='+this.id_usulan,{
@@ -1223,6 +1229,15 @@ export default {
 				this.rpjmd = res
 			});
 		},
+		fileValidation(file, size = 1){
+	    	if (file.size > (size * 1024 * 1024)) {
+		        event.preventDefault();
+		        Swal.fire('Gagal!','File Tidak boleh lebih dari '+size+'MB','warning')
+		        return true
+		    }
+
+		    return false
+	    },
 		countUpFromTime(countFrom) {
 			var vm = this
 		  	countFrom = new Date(countFrom).getTime();
