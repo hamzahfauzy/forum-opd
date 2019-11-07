@@ -697,7 +697,7 @@ export default {
 		},
 		async cetakBeritaAcara(){
 			var vm = this
-			let response = await fetch(window.config.getApiUrl()+'api/save-berita-acara-kecamatan&token='+this.token,{
+			let response = await fetch(window.config.getApiUrl()+'api/save-berita-acara-opd&token='+this.token,{
 				method:'POST',
 				body:JSON.stringify(this.listBeritaAcara)
 			})
