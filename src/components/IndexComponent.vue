@@ -150,6 +150,7 @@
 				    		<tr v-for="(data,index) in listUsulanMusrenbang">
 				    			
 				    			<td>
+				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span><br>
 				    				{{data.usulan.Jenis_Usulan}}
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kecamatan.Nm_Kec}}</p>
@@ -160,7 +161,7 @@
 					    			<br>
 					    			<span v-if="data.usulan != undefined && data.usulan.Skor != null">Skor : {{data.usulan.Skor}}</span>
 					    			<center>
-						    			<button v-if="acara.status != 0 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
+						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
 						    			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
@@ -197,6 +198,7 @@
 				    		<tr v-for="(data,index) in listUsulanPokir">
 				    			
 				    			<td>
+				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span><br>
 				    				{{data.usulan.Jenis_Usulan}}
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kecamatan.Nm_Kec}}</p>
