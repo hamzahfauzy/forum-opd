@@ -1067,7 +1067,7 @@ export default {
 			  confirmButtonText: 'Ya, Simpan Skor!'
 			}).then((result) => {
 			  if (result.value) {
-			    fetch(window.config.getApiUrl()+'api/save-skor',{
+			    fetch(window.config.getApiUrl()+'api/save-skor&status=1',{
 		    		method:'POST',
 		    		body:JSON.stringify({id:vm.id_usulan,token:vm.token,skor:vm.nilaiSkor})
 		    	})
@@ -1080,10 +1080,10 @@ export default {
 			    		vm.nilaiSkor = {}
 			    		vm.saveSkorBtn = false
 			    		document.querySelector('.btnSkorClose').click();
-			    		if(res.usulan.Kd_Asal_Usulan == 2)
-			    			vm.lihatUsulanDesa(res.usulan.Kd_Prov,res.usulan.Kd_Kab,res.usulan.Kd_Kec,res.usulan.Kd_Kel,res.usulan.Kd_Urut_Kel)
+			    		if(res.usulan.Kd_Asal_Usulan == 2 || res.usulan.Kd_Asal_Usulan == 3)
+			    			vm.loadUsulanMusrenbang()
 			    		else
-			    			vm.loadDataUsulan()
+			    			vm.loadUsulanPokir()
 			    		Swal.fire(
 						  'Berhasil!',
 						  'Skor berhasil Disimpan!',
@@ -1098,7 +1098,6 @@ export default {
 						  'fail'
 						)
 			    	}
-			    	vm.loadDataUsulans()
 		    	})
 			  }
 			})
