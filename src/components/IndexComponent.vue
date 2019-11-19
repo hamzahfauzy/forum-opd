@@ -150,7 +150,8 @@
 				    		<tr v-for="(data,index) in listUsulanMusrenbang">
 				    			
 				    			<td>
-				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span><br>
+				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span>
+				    				<span class="badge badge-danger" v-if="data.usulan.Status_Penerimaan_Skpd == 3">Usulan Di tolak OPD - {{data.usulan.Alasan_Skpd}}</span><br>
 				    				{{data.usulan.Jenis_Usulan}}
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kecamatan.Nm_Kec}}</p>
@@ -162,7 +163,9 @@
 					    			<span v-if="data.usulan != undefined && data.usulan.Skor != null">Skor : {{data.usulan.Skor}}</span>
 					    			<center>
 						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
-						    			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
+						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
+						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
+						    			<button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
 				    			</td>
@@ -198,7 +201,8 @@
 				    		<tr v-for="(data,index) in listUsulanPokir">
 				    			
 				    			<td>
-				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span><br>
+				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span>
+				    				<span class="badge badge-danger" v-if="data.usulan.Status_Penerimaan_Skpd == 3">Usulan Di tolak OPD - {{data.usulan.Alasan_Skpd}}</span><br>
 				    				{{data.usulan.Jenis_Usulan}}
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kecamatan.Nm_Kec}}</p>
@@ -210,7 +214,9 @@
 					    			<span v-if="data.usulan != undefined && data.usulan.Skor != null">Skor : {{data.usulan.Skor}}</span>
 					    			<center>
 						    			<button v-if="acara.status != 0 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
-						    			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
+						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
+						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
+						    			<button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
 				    			</td>
@@ -341,6 +347,54 @@
 				    <!-- Modal footer -->
 				    <div class="modal-footer">
 				    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalTolak">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content no-border-radius">
+					<!-- Modal Header -->
+					<div class="modal-header">
+				        <h4 class="modal-title">Form Tolak Usulan</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				    </div>
+
+				    <!-- Modal body -->
+				    <div class="modal-body">
+				    	<div>
+					    	<h5>Usulan yang akan di tolak</h5>
+					    	<table class="table table-bordered" v-if="usulanTolak.usulan != undefined">
+					    		<tr>
+					    			<td>
+						    			{{usulanTolak.usulan.Jenis_Usulan}}
+						    			<br>
+						    			<p style="color: #333;font-size: 12px;">{{usulanTolak.usulan.Nm_Permasalahan}}</p>
+						    			<p style="color: #333;font-size: 12px;">{{usulanTolak.usulan.Detail_Lokasi}} - {{usulanTolak.kecamatan.Nm_Kec}}</p>
+						    				
+						    				Rp. {{usulanTolak.usulan.Harga_Total.toLocaleString()}} / {{usulanTolak.usulan.Jumlah}} {{usulanTolak.satuan.Uraian}}
+						    			<br>
+						    			<b>{{usulanTolak.refSubUnit.Nm_Sub_Unit}}</b>
+					    			</td>
+					    		</tr>
+					    	</table>
+
+					    	<div class="alert alert-success" role="alert" v-if="usulanSuccessStatus">
+								Usulan Berhasil Ditolak
+							</div>
+					    	<div class="form-group">
+					    		<label>Alasan Penolakan</label>
+					    		<textarea class="form-control" v-model="alasan_penolakan"></textarea>
+					    	</div>
+
+				    	</div>
+				    </div>
+
+				    <!-- Modal footer -->
+				    <div class="modal-footer">
+				    	<button class="btn btn-primary" @click="tolakUsulan()">Tolak</button>
+				    	<button type="button" class="btn btn-danger btn-tolak" data-dismiss="modal">Close</button>
 				    </div>
 				</div>
 			</div>
@@ -630,6 +684,7 @@ export default {
 			dataUsulans		:{},
 			dataRiwayats	:{},
 			usulanDesa		:{},
+			usulanTolak		:{},
 			usulanForum		:{},
 			kamusUsulans	:{},
 			kamusUsulan 	:{},
@@ -649,6 +704,7 @@ export default {
 			keyword			:'',
 			message 		:'',
 			mediaUrl 		:'',
+			alasan_penolakan 		:'',
 			loader 			:true,
 			usulanKelLoading:true,
 			loginSuccessStatus 	:0,
@@ -788,6 +844,56 @@ export default {
 	    },
 	    openDokumenUpload(){
 	    	document.querySelector('input[name=dokumen_file]').click()
+	    },
+	    async setTolakUsulan(id){
+	    	let usulanDesa = await fetch(window.config.getApiUrl()+'api/get-usulan-by-id&id='+id)
+			let dataUsulanTolak = await usulanDesa.json()
+			this.usulanTolak = dataUsulanTolak
+			this.id_usulan = id
+			return dataUsulanTolak
+	    },
+	    tolakUsulan(){
+	    	var vm = this
+			Swal.fire({
+			  title: 'Konfirmasi ?',
+			  text: "Apakah anda yakin menolak usulan ini?",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Ya, Tolak Usulan!'
+			}).then((result) => {
+			  if (result.value) {
+			    fetch(window.config.getApiUrl()+'api/tolak-usulan-forum',{
+		    		method:'POST',
+		    		body:JSON.stringify({id:vm.id_usulan,token:vm.token,alasan_penolakan:vm.alasan_penolakan})
+		    	})
+		    	.then(res => res.json())
+		    	.then(res => {
+		    		if(res.status == 'success')
+			    	{
+			    		vm.id_usulan = 0
+			    		document.querySelector('.btn-tolak').click();
+			    		Swal.fire(
+						  'Berhasil!',
+						  'Usulan berhasil Ditolak!',
+						  'success'
+						)
+			    	}
+			    	else
+			    	{
+			    		Swal.fire(
+						  'Gagal!',
+						  'Usulan gagal Ditolak!',
+						  'fail'
+						)
+			    	}
+			    	vm.loadUsulanMusrenbang()
+			    	vm.loadUsulanPokir()
+		    	})
+			  }
+			})
+	    	
 	    },
 	    async sendUsulan(){
 	    	let response = await fetch(window.config.getApiUrl()+'api/simpan-usulan-musrenbang',{
@@ -1037,6 +1143,47 @@ export default {
 						)
 			    	}
 			    	vm.loadDataUsulans()
+		    	})
+			  }
+			})
+	    	
+	    },
+	    terimaUsulan(id){
+	    	var vm = this
+			Swal.fire({
+			  title: 'Konfirmasi ?',
+			  text: "Apakah anda yakin menerima usulan ini?",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Ya, Terima Usulan!'
+			}).then((result) => {
+			  if (result.value) {
+			    fetch(window.config.getApiUrl()+'api/terima-usulan',{
+		    		method:'POST',
+		    		body:JSON.stringify({id:id,token:this.token})
+		    	})
+		    	.then(res => res.json())
+		    	.then(res => {
+		    		if(res.status == 'success')
+			    	{
+			    		Swal.fire(
+						  'Berhasil!',
+						  'Usulan berhasil di terima!',
+						  'success'
+						)
+			    	}
+			    	else
+			    	{
+			    		Swal.fire(
+						  'Gagal!',
+						  'Usulan gagal di terima!',
+						  'fail'
+						)
+			    	}
+			    	vm.loadUsulanPokir()
+			    	vm.loadUsulanMusrenbang()
 		    	})
 			  }
 			})
