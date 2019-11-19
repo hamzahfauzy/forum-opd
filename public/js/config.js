@@ -8,6 +8,9 @@ var config = {
 	getRoleName: () => {
 		return 'Operator_Skpd'
 	},
+	getLinkCetakUsulanDesa: () => {
+		return window.config.getApiUrl() + 'api/cetak-rekapitulasi&token=';
+	},
 	getLinkCetakUsulanPokir: () => {
 		return window.config.getApiUrl() + 'api/cetak-rekapitulasi&token=';
 	},

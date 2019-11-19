@@ -143,12 +143,20 @@
 				    <!-- Modal body -->
 				    <div class="modal-body">
 				    	<div style="max-height:450px;overflow: auto;">
-				    		<center>
-				    			<span v-if="!listUsulanMusrenbang.length"><i>Tidak ada data!</i></span>
-				    		</center>
+				    	<a :href="linkCetakUsulanDesa+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a>
+				    	<p></p>
+				   		<div class="form-group">
+				   			<label>Kecamatan</label>
+				    		<select class="form-control" @change="changeListUsulanMusrenbang" v-model="filterKecamatan">
+				    			<option value="0">- Semua Kecamatan -</option>
+				    			<option v-for="kecamatan in kecamatans" :value="kecamatan.Kd_Kec">{{kecamatan.Nm_Kec}}</option>
+				    		</select>
+				    	</div>
+				    	<center>
+				    		<span v-if="!listUsulanMusrenbang.length"><i>Tidak ada data!</i></span>
+				    	</center>
 				    	<table class="table table-bordered">
 				    		<tr v-for="(data,index) in listUsulanMusrenbang">
-				    			
 				    			<td>
 				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span>
 				    				<span class="badge badge-danger" v-if="data.usulan.Status_Penerimaan_Skpd == 3">Usulan Di tolak OPD - {{data.usulan.Alasan_Skpd}}</span><br>
@@ -197,6 +205,8 @@
 				    		<center>
 				    			<span v-if="!listUsulanPokir.length"><i>Tidak ada data!</i></span>
 				    		</center>
+				    	<a :href="linkCetakUsulanDesa+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a>
+				    	<p></p>
 				    	<table class="table table-bordered">
 				    		<tr v-for="(data,index) in listUsulanPokir">
 				    			
@@ -536,6 +546,13 @@
 				    <!-- Modal body -->
 				    <div class="modal-body" v-if="acara.data != undefined">
 				    	<div class="form-group">
+				   			<label>Kecamatan</label>
+				    		<select class="form-control" v-model="acara.data.Kd_Kec">
+				    			<option value="0">- Semua Kecamatan -</option>
+				    			<option v-for="kecamatan in kecamatans" :value="kecamatan.Kd_Kec">{{kecamatan.Nm_Kec}}</option>
+				    		</select>
+				    	</div>
+				    	<div class="form-group">
 				    		<label>Jumlah Peserta</label>
 			    			<input type="text" class="form-control" v-model="acara.data.Jumlah_Peserta">
 			    			<span style="color:red;" :class="{'d-none':!errors.Jumlah_Peserta}">Jumlah Peserta tidak boleh kosong!</span>
@@ -560,51 +577,15 @@
 			    		</div>
 
 			    		<div class="form-group">
-				    		<label>Sambutan 1</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_1">
-			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_1}">Sambutan 1 tidak boleh kosong!</span>
+				    		<label>Pimpinan Sidang</label>
+			    			<input type="text" class="form-control" v-model="acara.data.Pimpinan_Sidang">
+			    			<span style="color:red;" :class="{'d-none':!errors.Pimpinan_Sidang}">Pimpinan Sidang tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">
-				    		<label>Sambutan 2</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_2">
-			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_2}">Sambutan 2 tidak boleh kosong!</span>
-			    		</div>
-
-			    		<div class="form-group">
-				    		<label>Sambutan 3</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_3">
-			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_3}">Sambutan 3 tidak boleh kosong!</span>
-			    		</div>
-
-			    		<div class="form-group">
-				    		<label>Sambutan 4</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_4">
-			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_4}">Sambutan 4 tidak boleh kosong!</span>
-			    		</div>
-
-			    		<div class="form-group">
-				    		<label>Sambutan 5</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Sambutan_5">
-			    			<span style="color:red;" :class="{'d-none':!errors.Sambutan_5}">Sambutan 5 tidak boleh kosong!</span>
-			    		</div>
-
-			    		<div class="form-group">
-				    		<label>Pemateri 1</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Pemateri_1">
-			    			<span style="color:red;" :class="{'d-none':!errors.Pemateri_1}">Pemateri 1 tidak boleh kosong!</span>
-			    		</div>
-
-			    		<div class="form-group">
-				    		<label>Pemateri 2</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Pemateri_2">
-			    			<span style="color:red;" :class="{'d-none':!errors.Pemateri_2}">Pemateri 2 tidak boleh kosong!</span>
-			    		</div>
-
-			    		<div class="form-group">
-				    		<label>Pemateri 3</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Pemateri_3">
-			    			<span style="color:red;" :class="{'d-none':!errors.Pemateri_3}">Pemateri 3 tidak boleh kosong!</span>
+				    		<label>Jadwal Forum</label>
+			    			<input type="text" class="form-control" v-model="acara.data.Jadwal_Forum">
+			    			<span style="color:red;" :class="{'d-none':!errors.Jadwal_Forum}">Jadwal Forum tidak boleh kosong!</span>
 			    		</div>
 			    		
 				    </div>
@@ -704,6 +685,9 @@ export default {
 			keyword			:'',
 			message 		:'',
 			mediaUrl 		:'',
+			kecamatans: {}, 
+			linkCetakUsulanDesa 		:'',
+			linkCetakAbsensi 		:'',
 			alasan_penolakan 		:'',
 			loader 			:true,
 			usulanKelLoading:true,
@@ -714,6 +698,7 @@ export default {
 			nilaiSkor		: {},
 			saveSkorBtn		: false,
 			jumlahKriteria 	: 0,
+			filterKecamatan 	: 0,
 			jumlahTerjawab	: 0,
 			jumlahSkor		: 0,
 			countUpFromTimeInterval:'',
@@ -725,6 +710,7 @@ export default {
 		this.token = window.localStorage.getItem('forum_opd_token')
 		this.role_name = window.config.getRoleName()
 		this.mediaUrl = window.config.getMediaUrl()
+		this.linkCetakUsulanDesa = window.config.getLinkCetakUsulanDesa()
 		this.linkCetakUsulan = window.config.getLinkCetakUsulanPokir()
 		this.linkCetakAbsensi = window.config.getLinkCetakAbsensiPokir()
 		this.linkBeritaAcara = window.config.getLinkCetakBeritaAcaraPokir()
@@ -734,6 +720,7 @@ export default {
 		// await this.loadRpjmd()
 		// await this.loadKamus()
 		await this.loadBerkasKegiatan()
+		await this.loadKecamatans()
 		this.loader = true
 	},
 	methods: {
@@ -751,6 +738,16 @@ export default {
 				this.user = await data.data	
 				this.kelompok = data.subUnit
 			}
+			return data
+		},
+		async loadKecamatans(){
+			let response = await fetch(window.config.getApiUrl()+'api/get-kecamatan',{
+				method: 'POST',
+				body:JSON.stringify({token:this.token,level:this.role_name})
+			})
+
+			let data = await response.json()
+			this.kecamatans = await data
 			return data
 		},
 		async cetakBeritaAcara(){
@@ -851,6 +848,12 @@ export default {
 			this.usulanTolak = dataUsulanTolak
 			this.id_usulan = id
 			return dataUsulanTolak
+	    },
+	    async changeListUsulanMusrenbang(){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-musrenbang-kecamatan&Kd_Kec='+this.filterKecamatan+'&token='+this.token)
+			let data = await response.json()
+			this.listUsulanMusrenbang = data
+			return data
 	    },
 	    tolakUsulan(){
 	    	var vm = this
