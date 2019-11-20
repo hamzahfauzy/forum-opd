@@ -214,10 +214,18 @@
 				    <!-- Modal body -->
 				    <div class="modal-body">
 				    	<div style="max-height:450px;overflow: auto;">
-				    		<center>
-				    			<span v-if="!listUsulanPokir.length"><i>Tidak ada data!</i></span>
-				    		</center>
 				    	<a :href="linkCetakUsulan+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a>
+				    	<p></p>
+				   		<div class="form-group">
+				   			<label>Anggota Dewan</label>
+				    		<select class="form-control" @change="changeListUsulanPokir" v-model="filterPokir">
+				    			<option value="0">- Semua Dewan -</option>
+				    			<option v-for="dewan in dewans" :value="dewan.user.id">{{dewan.data.Nm_Dewan}}</option>
+				    		</select>
+				    	</div>
+				    	<center>
+				    		<span v-if="!listUsulanPokir.length"><i>Tidak ada data!</i></span>
+				    	</center>
 				    	<p></p>
 				    	<table class="table table-bordered">
 				    		<tr v-for="(data,index) in listUsulanPokir">
@@ -697,7 +705,8 @@ export default {
 			keyword			:'',
 			message 		:'',
 			mediaUrl 		:'',
-			kecamatans: {}, 
+			kecamatans 		: {}, 
+			dewans			: {}, 
 			linkCetakUsulanDesa 		:'',
 			linkCetakAbsensi 		:'',
 			alasan_penolakan 		:'',
@@ -710,6 +719,7 @@ export default {
 			nilaiSkor		: {},
 			saveSkorBtn		: false,
 			jumlahKriteria 	: 0,
+			filterPokir : 0,
 			filterKecamatan : 0,
 			filterPrioritas : 0,
 			jumlahTerjawab	: 0,
@@ -734,6 +744,7 @@ export default {
 		// await this.loadKamus()
 		await this.loadBerkasKegiatan()
 		await this.loadKecamatans()
+		await this.loadDewans()
 		this.loader = true
 	},
 	methods: {
@@ -761,6 +772,16 @@ export default {
 
 			let data = await response.json()
 			this.kecamatans = await data
+			return data
+		},
+		async loadDewans(){
+			let response = await fetch(window.config.getApiUrl()+'api/get-dewan',{
+				method: 'POST',
+				body:JSON.stringify({token:this.token,level:this.role_name})
+			})
+
+			let data = await response.json()
+			this.dewans = await data
 			return data
 		},
 		async cetakBeritaAcara(){
@@ -1108,6 +1129,12 @@ export default {
 	    },
 	    async loadUsulanPokir(){
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-pokir&token='+this.token)
+			let data = await response.json()
+			this.listUsulanPokir = data
+			return data
+	    },
+	    async changeListUsulanPokir(){
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-pokir&Kd_User='+this.filterPokir+'&token='+this.token)
 			let data = await response.json()
 			this.listUsulanPokir = data
 			return data
