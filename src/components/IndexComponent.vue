@@ -152,6 +152,14 @@
 				    			<option v-for="kecamatan in kecamatans" :value="kecamatan.Kd_Kec">{{kecamatan.Nm_Kec}}</option>
 				    		</select>
 				    	</div>
+
+				    	<div class="form-group">
+				   			<label>Status Prioritas</label>
+				    		<select class="form-control" @change="loadPrioritas" v-model="filterPrioritas">
+				    			<option value="0">- Pilih -</option>
+				    			<option v-for="status in ['Prioritas','Cadangan']" :value="status">{{status}}</option>
+				    		</select>
+				    	</div>
 				    	<center>
 				    		<span v-if="!listUsulanMusrenbang.length"><i>Tidak ada data!</i></span>
 				    	</center>
@@ -159,7 +167,9 @@
 				    		<tr v-for="(data,index) in listUsulanMusrenbang">
 				    			<td>
 				    				<span class="badge badge-success" v-if="data.usulan.Status_Penerimaan_Skpd == 1">Usulan Di terima OPD</span>
-				    				<span class="badge badge-danger" v-if="data.usulan.Status_Penerimaan_Skpd == 3">Usulan Di tolak OPD - {{data.usulan.Alasan_Skpd}}</span><br>
+				    				<span class="badge badge-danger" v-if="data.usulan.Status_Penerimaan_Skpd == 3">Usulan Di tolak OPD - {{data.usulan.Alasan_Skpd}}</span>
+				    				<span class="badge badge-warning" v-if="(filterPrioritas == 'Prioritas' || filterPrioritas == '0') && data.usulan.Status_Penerimaan_Skpd == 0">Belum Dibahas</span>
+				    				<span class="badge badge-warning" v-if="filterPrioritas == 'Cadangan' && data.usulan.Status_Penerimaan_Kecamatan == '0'">Usulan Cadangan</span><br>
 				    				{{data.usulan.Jenis_Usulan}}
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kecamatan.Nm_Kec}}</p>
@@ -170,9 +180,11 @@
 					    			<br>
 					    			<span v-if="data.usulan != undefined && data.usulan.Skor != null">Skor : {{data.usulan.Skor}}</span>
 					    			<center>
-						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
-						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
-						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
+						    			<button v-if="acara.status == 1 && (filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
+						    			<button v-if="acara.status == 1 && (filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
+						    			<button v-if="acara.status == 1 && (filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
+
+						    			<button v-if="acara.status == 1 && filterPrioritas == 'Cadangan'" class="btn btn-sm btn-success" @click="terimaUsulanCadangan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
 						    			<button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
@@ -698,7 +710,8 @@ export default {
 			nilaiSkor		: {},
 			saveSkorBtn		: false,
 			jumlahKriteria 	: 0,
-			filterKecamatan 	: 0,
+			filterKecamatan : 0,
+			filterPrioritas : 0,
 			jumlahTerjawab	: 0,
 			jumlahSkor		: 0,
 			countUpFromTimeInterval:'',
@@ -850,6 +863,7 @@ export default {
 			return dataUsulanTolak
 	    },
 	    async changeListUsulanMusrenbang(){
+			this.filterPrioritas = 0
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-musrenbang-kecamatan&Kd_Kec='+this.filterKecamatan+'&token='+this.token)
 			let data = await response.json()
 			this.listUsulanMusrenbang = data
@@ -1069,6 +1083,29 @@ export default {
 			this.listUsulanMusrenbang = data
 			return data
 	    },
+	    async loadUsulanMusrenbangCadangan(){
+	    	if(this.filterKecamatan)
+	    	{
+		    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-musrenbang-kecamatan-cadangan&Kd_Kec='+this.filterKecamatan+'&token='+this.token)
+				let data = await response.json()
+				this.listUsulanMusrenbang = data
+				return data
+	    	}
+
+	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-musrenbang-kecamatan-cadangan&token='+this.token)
+			let data = await response.json()
+			this.listUsulanMusrenbang = data
+			return data
+	    },
+	    loadPrioritas(){
+	    	if(this.filterPrioritas == 'Prioritas')
+	    		if(this.filterKecamatan)
+	    			this.changeListUsulanMusrenbang()
+	    		else
+	    			this.loadUsulanMusrenbang()
+	    	else
+	    		this.loadUsulanMusrenbangCadangan()
+	    },
 	    async loadUsulanPokir(){
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-pokir&token='+this.token)
 			let data = await response.json()
@@ -1187,6 +1224,48 @@ export default {
 			    	}
 			    	vm.loadUsulanPokir()
 			    	vm.loadUsulanMusrenbang()
+		    	})
+			  }
+			})
+	    	
+	    },
+	    terimaUsulanCadangan(id){
+	    	var vm = this
+			Swal.fire({
+			  title: 'Konfirmasi ?',
+			  text: "Apakah anda yakin menerima usulan cadangan ini?",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Ya, Terima Usulan!'
+			}).then((result) => {
+			  if (result.value) {
+			    fetch(window.config.getApiUrl()+'api/terima-usulan-cadangan',{
+		    		method:'POST',
+		    		body:JSON.stringify({id:id,token:this.token})
+		    	})
+		    	.then(res => res.json())
+		    	.then(res => {
+		    		if(res.status == 'success')
+			    	{
+			    		Swal.fire(
+						  'Berhasil!',
+						  'Usulan berhasil di terima!',
+						  'success'
+						)
+			    	}
+			    	else
+			    	{
+			    		Swal.fire(
+						  'Gagal!',
+						  'Usulan gagal di terima!',
+						  'fail'
+						)
+			    	}
+			    	vm.loadUsulanPokir()
+			    	vm.loadUsulanMusrenbang()
+			    	vm.loadUsulanMusrenbangCadangan()
 		    	})
 			  }
 			})
