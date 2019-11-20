@@ -23,7 +23,7 @@
 				<img :src="user.avatar_url ? mediaUrl+'/'+user.avatar_url : 'assets/face1.jpg'" class="profile-picture" width="100px" height="100px" data-toggle="modal" data-target="#modalProfile">
 				<p></p>
 				<h2 class="username-label">{{kelompok.Nm_Sub_Unit}}</h2>
-				<h4>Selamat Datang di Forum OPD Kabupaten Asahan</h4>
+				<h4>Selamat Datang di Forum Perangkat Daerah Kabupaten Asahan</h4>
 				<h4 v-if="acara.status == 1">{{musrenbangTimer}}</h4>
 				<div class="z-desktop">
 					<a href="#" class="btn me-btn" v-if="acara.status == 0" data-toggle="modal" data-target="#modalMulaiMusrenbang" @click="showModalMulai()">Mulai Forum</a>
@@ -205,7 +205,7 @@
 				    		<center>
 				    			<span v-if="!listUsulanPokir.length"><i>Tidak ada data!</i></span>
 				    		</center>
-				    	<a :href="linkCetakUsulanDesa+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a>
+				    	<a :href="linkCetakUsulan+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a>
 				    	<p></p>
 				    	<table class="table table-bordered">
 				    		<tr v-for="(data,index) in listUsulanPokir">
@@ -559,9 +559,9 @@
 			    		</div>
 
 			    		<div class="form-group">
-				    		<label>Pimpinan Sidang</label>
-			    			<input type="text" class="form-control" v-model="acara.data.Pimpinan_Sidang">
-			    			<span style="color:red;" :class="{'d-none':!errors.Pimpinan_Sidang}">Pimpinan Sidang tidak boleh kosong!</span>
+				    		<label>Pemateri</label>
+			    			<input type="text" class="form-control" v-model="acara.data.Pemateri">
+			    			<span style="color:red;" :class="{'d-none':!errors.Pemateri}">Pemateri tidak boleh kosong!</span>
 			    		</div>
 
 			    		<div class="form-group">

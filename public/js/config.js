@@ -12,7 +12,7 @@ var config = {
 		return window.config.getApiUrl() + 'api/cetak-rekapitulasi&token=';
 	},
 	getLinkCetakUsulanPokir: () => {
-		return window.config.getApiUrl() + 'api/cetak-rekapitulasi&token=';
+		return window.config.getApiUrl() + 'api/cetak-rekapitulasi-forum-pokir&token=';
 	},
 	getLinkCetakAbsensiPokir: () => {
 		return window.config.getApiUrl() + 'api/musrenbang-absensi&token=';
