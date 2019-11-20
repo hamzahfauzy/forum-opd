@@ -21,7 +21,7 @@
 			<div class="dark-overlay"></div>
 			<div class="logo">
 				<img src="assets/logo.png" style="z-index: 2;position: relative;">
-				<h3>Forum OPD Kabupaten Asahan</h3>
+				<h3>Forum Perangkat Daerah Kabupaten Asahan</h3>
 				<!-- <h4>Login Form</h4> -->
 				<div class="container z-container">
 					<div class="row">
