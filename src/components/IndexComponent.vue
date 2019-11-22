@@ -798,7 +798,7 @@ export default {
 			if(data.status == 'success')
 			{
 				vm.loadAcara()
-				location = this.linkBeritaAcara+this.token
+				window.open(this.linkBeritaAcara+this.token)
 			}
 			return data
 		},
