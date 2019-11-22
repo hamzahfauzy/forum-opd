@@ -143,7 +143,8 @@
 				    <!-- Modal body -->
 				    <div class="modal-body">
 				    	<div style="max-height:450px;overflow: auto;">
-				    	<a :href="linkCetakUsulanDesa+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a>
+				    	<!-- <a :href="linkCetakUsulanDesa+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a> -->
+				    	<button @click="cetakRekapitulasiMusrenbang()" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</button>
 				    	<p></p>
 				   		<div class="form-group">
 				   			<label>Kecamatan</label>
@@ -214,7 +215,8 @@
 				    <!-- Modal body -->
 				    <div class="modal-body">
 				    	<div style="max-height:450px;overflow: auto;">
-				    	<a :href="linkCetakUsulan+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a>
+				    	<!-- <a :href="linkCetakUsulan+token" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</a> -->
+				    	<button @click="cetakRekapitulasiForum()" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Rekapitulasi Usulan</button>
 				    	<p></p>
 				   		<div class="form-group">
 				   			<label>Anggota Dewan</label>
@@ -884,11 +886,16 @@ export default {
 			return dataUsulanTolak
 	    },
 	    async changeListUsulanMusrenbang(){
-			this.filterPrioritas = 0
 	    	let response = await fetch(window.config.getApiUrl()+'api/get-usulan-musrenbang-kecamatan&Kd_Kec='+this.filterKecamatan+'&token='+this.token)
 			let data = await response.json()
 			this.listUsulanMusrenbang = data
 			return data
+	    },
+	    cetakRekapitulasiMusrenbang(){
+	    	window.open(this.linkCetakUsulanDesa+''+this.token+'&prioritas='+this.filterPrioritas+'&kecamatan='+this.filterKecamatan)
+	    },
+	    cetakRekapitulasiForum(){
+	    	window.open(this.linkCetakUsulan+''+this.token+'&Kd_User='+this.filterPokir)
 	    },
 	    tolakUsulan(){
 	    	var vm = this
