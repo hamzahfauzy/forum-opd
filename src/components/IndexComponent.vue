@@ -180,11 +180,11 @@
 					    			<br>
 					    			<span v-if="data.usulan != undefined && data.usulan.Skor != null">Skor : {{data.usulan.Skor}}</span>
 					    			<center>
-						    			<button v-if="acara.status == 1 && (filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
-						    			<button v-if="acara.status == 1 && (filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
-						    			<button v-if="acara.status == 1 && (filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
+						    			<button v-if="(filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
+						    			<button v-if="(filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
+						    			<button v-if="(filterPrioritas == 'Prioritas' || filterPrioritas == 0) && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
 
-						    			<button v-if="acara.status == 1 && filterPrioritas == 'Cadangan'" class="btn btn-sm btn-success" @click="terimaUsulanCadangan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
+						    			<button v-if="filterPrioritas == 'Cadangan'" class="btn btn-sm btn-success" @click="terimaUsulanCadangan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
 						    			<button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
@@ -243,9 +243,9 @@
 					    			<br>
 					    			<span v-if="data.usulan != undefined && data.usulan.Skor != null">Skor : {{data.usulan.Skor}}</span>
 					    			<center>
-						    			<button v-if="acara.status != 0 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
-						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
-						    			<button v-if="acara.status == 1 && data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
+						    			<button v-if="data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSkoring" @click="skoringForum(data)"><i class="fa fa-calculator"></i> Skoring</button>
+						    			<button v-if="data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-success" @click="terimaUsulan(data.usulan.id)"><i class="fa fa-check"></i> Terima</button>
+						    			<button v-if="data.usulan.Status_Penerimaan_Skpd == 0" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalTolak" @click="setTolakUsulan(data.usulan.id)"><i class="fa fa-times"></i> Tolak</button>
 						    			<button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalRiwayat" @click="tampilRiwayat(data.usulan.id)"><i class="fa fa-history"></i> Riwayat</button>
 						    			<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalBerkas" @click="loadBerkas(data.usulan.id)"><i class="fa fa-file"></i> Berkas</button>
 					    			</center>
