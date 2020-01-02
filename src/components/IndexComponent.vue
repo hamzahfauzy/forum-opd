@@ -758,7 +758,10 @@ export default {
 
 			let data = await response.json()
 			if(data.status == 'error')
+			{
+				window.localStorage.removeItem('forum_opd_token')
 				location='login.html'
+			}
 			else
 			{
 				this.user = await data.data	
