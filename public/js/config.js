@@ -1,9 +1,9 @@
 var config = {
 	getApiUrl: () => {
-		return 'http://eplanning.asahankab.go.id/2020/eperencanaan/web/index.php?r=';
+		return 'http://eplanning.asahankab.go.id/app-2020/eperencanaan/web/index.php?r=';
 	},
 	getMediaUrl: () => {
-		return 'http://eplanning.asahankab.go.id/2020/eperencanaan/web/uploads';
+		return 'http://eplanning.asahankab.go.id/app-2020/eperencanaan/web/uploads';
 	},
 	getRoleName: () => {
 		return 'Operator_Skpd'
