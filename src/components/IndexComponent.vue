@@ -173,7 +173,7 @@
 				    				<span class="badge badge-warning" v-if="filterPrioritas == 'Cadangan' && data.usulan.Status_Penerimaan_Kecamatan == '0'">Usulan Cadangan</span><br>
 				    				{{data.usulan.Jenis_Usulan}}
 					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Nm_Permasalahan}}</p>
-					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kecamatan.Nm_Kec}}</p>
+					    			<p style="color: #333;font-size: 12px;">{{data.usulan.Detail_Lokasi}} - {{data.kelurahan.Nm_Kel}} - {{data.kecamatan.Nm_Kec}}</p>
 					    				
 					    				Rp. {{data.usulan.Harga_Total.toLocaleString()}} / {{data.usulan.Jumlah}} {{data.satuan.Uraian}}
 					    			<br>
